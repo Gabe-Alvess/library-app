@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ErrorComponent } from './error/error.component';
 import { BooksComponent } from './books/books.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     FooterComponent,
     ErrorComponent,
     BooksComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,

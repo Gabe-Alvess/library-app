@@ -5,9 +5,9 @@
 @tailwind utilities;
 
 body {
-  @apply bg-p-lBlue scrollbar-none;
+  @apply bg-library-img bg-cover bg-no-repeat h-screen scrollbar-none;
 }
 
 .page {
-  @apply w-screen h-screen flex justify-center items-center text-p-beige;
+  @apply w-screen h-screen py-28 px-10;
 }

@@ -1,19 +1,25 @@
 <header>
-  <div class="bg-black w-screen h-0 p-14 fixed flex justify-around items-center">
+  <div class="bg-p-sBlue w-screen fixed flex justify-around items-center">
     <div>
-        <p class="text-5xl text-teal-300">Library | Name</p>
+      <p class="text-5xl text-teal-300 font-mooli">Library | Name</p>
     </div>
     <search-bar></search-bar>
-    <div class="flex text-teal-300 font-mooli text-lg">
-      <a routerLink="/" (click)="scrollTo('login')" class="group btn">
+    <div class="flex text-teal-300 font-mooli">
+      <a routerLink="/" class="btn group">
         <p>
-          LOGIN
+          Home
           <span class="go-span"> GO </span>
         </p>
       </a>
-      <a routerLink="/about" (click)="scrollTo('sign-in')"class="group btn">
+      <a routerLink="/login" class="btn group">
         <p>
-          SIGN IN
+          Login
+          <span class="go-span"> GO </span>
+        </p>
+      </a>
+      <a routerLink="/signup" class="btn group">
+        <p>
+          Signup
           <span class="go-span"> GO </span>
         </p>
       </a>

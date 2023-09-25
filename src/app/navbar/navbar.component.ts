@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  scrollTo(targetId: string): void {
-    const targetelement = document.querySelector(`#${targetId}`);
-    targetelement?.scrollIntoView({ behavior: 'smooth' });
-  }
+  // scrollTo(targetId: string): void {
+  //   const targetelement = document.querySelector(`#${targetId}`);
+  //   targetelement?.scrollIntoView({ behavior: 'smooth' });
+  // }
 }

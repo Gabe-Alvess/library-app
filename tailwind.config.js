@@ -14,6 +14,9 @@ module.exports = {
         mooli: ["Mooli", "sans-serif"],
         oswald: ["Oswald", "sans-serif"],
       },
+      backgroundImage: {
+        "library-img": "url('/../assets/images/library-bg.jpg')",
+      },
     },
   },
   plugins: [require("tailwind-scrollbar")],
