@@ -1,0 +1,22 @@
+<header>
+  <div class="bg-black w-screen h-0 p-14 fixed flex justify-around items-center">
+    <div>
+        <p class="text-5xl text-teal-300">Library | Name</p>
+    </div>
+    <search-bar></search-bar>
+    <div class="flex text-teal-300 font-mooli text-lg">
+      <a routerLink="/" (click)="scrollTo('login')" class="group btn">
+        <p>
+          LOGIN
+          <span class="go-span"> GO </span>
+        </p>
+      </a>
+      <a routerLink="/about" (click)="scrollTo('sign-in')"class="group btn">
+        <p>
+          SIGN IN
+          <span class="go-span"> GO </span>
+        </p>
+      </a>
+    </div>
+  </div>
+</header>
