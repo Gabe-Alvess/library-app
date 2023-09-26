@@ -12,6 +12,8 @@ import { ErrorComponent } from './error/error.component';
 import { BooksComponent } from './books/books.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { CarouselComponent } from './carousel/carousel.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CarouselModule } from 'primeng/carousel';
 
 @NgModule({
   declarations: [
@@ -24,13 +26,15 @@ import { CarouselComponent } from './carousel/carousel.component';
     ErrorComponent,
     BooksComponent,
     SearchBarComponent,
-    CarouselComponent
+    CarouselComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    CarouselModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
