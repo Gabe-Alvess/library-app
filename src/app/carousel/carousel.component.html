@@ -1,3 +1,44 @@
-<div>
-  
+<div class="w-screen flex justify-center mt-10">
+  <div class="w-11/12 bg-black bg-opacity-75 rounded-xl p-5">
+    <div class="flex flex-col items-center justify-center">
+      <h2 class="text-white text-4xl font-oswald font-bold">
+        Most Popular Books
+      </h2>
+    </div>
+
+    <p-carousel
+      [value]="books"
+      [numVisible]="1"
+      [numScroll]="1"
+      [circular]="true"
+      [responsiveOptions]="responsiveOptions"
+      [autoplayInterval]="6000"
+    >
+      <ng-template let-product pTemplate="item">
+        <div class="flex items-center justify-center m-2 py-5 px-3">
+          <div class="m-10">
+            <img
+              src="{{ books[0].img }}"
+              [alt]="books[0].title"
+              class="w-60 shadow-2"
+            />
+          </div>
+          <div>
+            <h3 class="text-white text-2xl font-oswald font-bold mb-1">
+              {{ books[0].title }}
+            </h3>
+            <p class="text-white text-lg font-mooli mb-2">
+              {{ books[0].author }}
+            </p>
+            <p class="text-white font-mooli w-96 mb-2">
+              {{ books[0].description }}
+            </p>
+            <p class="text-white font-mooli">
+              <span class="text-lg">Genres:</span> {{ books[0].genres }}
+            </p>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
 </div>

@@ -14,6 +14,8 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { CarouselModule } from 'primeng/carousel';
     AppRoutingModule,
     BrowserAnimationsModule,
     CarouselModule,
+    ButtonModule,
+    TagModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
