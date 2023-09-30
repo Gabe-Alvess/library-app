@@ -12,10 +12,9 @@ import { ErrorComponent } from './error/error.component';
 import { BooksComponent } from './books/books.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { CarouselComponent } from './carousel/carousel.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CarouselModule } from 'primeng/carousel';
-import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   declarations: [
@@ -33,10 +32,9 @@ import { TagModule } from 'primeng/tag';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    CarouselModule,
-    ButtonModule,
-    TagModule,
+    FormsModule,
+    HttpClientModule,
+    CarouselModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
