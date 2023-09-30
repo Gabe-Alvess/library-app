@@ -1,38 +1,21 @@
-<div class="flex justify-center">
-  <div class="w-screen flex flex-col p-5 bg-black bg-opacity-50">
-    <div *ngFor="let book of books" class="flex items-center justify-center mb-5">
-      <div class="w-[250px] h-[400px] object-cover">
-        <img [src]="book.imgURL" [alt]="book.title" />
-      </div>
-      <div class="ml-5 text-white">
-        <h1 class="text-4xl font-oswald max-w-lg mb-3">{{ book.title }}</h1>
-        <h2 class="text-2xl font-mooli mb-3">{{ book.author }}</h2>
-        <p
-          class="text-lg font-mooli max-w-lg max-h-60 overflow-y-scroll scrollbar-none mb-3"
-        >
-          {{ book.description }}
-        </p>
-        <p class="text-lg font-mooli max-w-md">
-          <strong>Genres:</strong> {{ book.genres }}
-        </p>
-      </div>
+<div class="w-screen flex flex-col items-center p-5">
+  <div
+    *ngFor="let book of books"
+    class="flex items-center justify-center mb-4 bg-zinc-950 bg-opacity-90 p-4 rounded-xl"
+  >
+    <div class="w-[250px] h-[400px] object-cover">
+      <img [src]="book.imgURL" [alt]="book.title" />
     </div>
-
-    <div *ngIf="notFound">
-      <p class="text-3xl text-red-500 text-center font-oswald">
-        Book Not Found! (┬┬﹏┬┬)
+    <div class="ml-7 text-p-beige">
+      <h1 class="text-4xl font-oswald max-w-xl mb-3">{{ book.title }}</h1>
+      <h2 class="text-2xl font-mooli mb-3">By {{ book.author }}</h2>
+      <p
+        class="text-lg font-mooli max-w-xl max-h-52 overflow-y-scroll scrollbar-none mb-3"
+      >
+        {{ book.description }}
       </p>
-    </div>
-
-    <div *ngIf="failed">
-      <p class="text-3xl text-red-500 text-center font-oswald">
-        Something went wrong! (┬┬﹏┬┬)
-      </p>
-      <p class="text-3xl text-red-500 text-center font-oswald">
-        {{ "Error Code: " + errorCode }}
-      </p>
-      <p class="text-3xl text-red-500 text-center font-oswald">
-        {{ errorName }}
+      <p class="text-lg font-mooli max-w-md">
+        <strong>Genres:</strong> {{ book.genres }}
       </p>
     </div>
   </div>

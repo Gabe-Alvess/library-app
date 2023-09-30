@@ -16,8 +16,6 @@ export class BooksComponent implements OnInit {
   errorCode: string = '';
   errorName: string = '';
 
-  searchInput: string = '';
-
   constructor(
     private bookService: BookService,
     private dataService: DataService
@@ -25,31 +23,27 @@ export class BooksComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.searchInput$.subscribe((search) => {
-      this.searchInput = search;
+      if (search.trim().length > 0) {
+        this.bookService.searchForBooks(search).subscribe({
+          next: (response: Book[]) => {
+            this.books = response;
 
-      this.searchBook();
-    });
-  }
+            this.books.length === 0
+              ? (this.notFound = true)
+              : (this.notFound = false);
 
-  searchBook() {
-    this.bookService.searchForBooks(this.searchInput).subscribe({
-      next: (response: Book[]) => {
-        this.books = response;
+            this.failed = false;
 
-        this.books.length === 0
-          ? (this.notFound = true)
-          : (this.notFound = false);
-
-        this.failed = false;
-
-        console.log(this.books);
-      },
-      error: (responseError) => {
-        console.error('Get error: ', responseError);
-        this.failed = true;
-        this.errorCode = responseError.status;
-        this.errorName = responseError.error.error;
-      },
+            console.log(this.books);
+          },
+          error: (responseError) => {
+            console.error('Get error: ', responseError);
+            this.failed = true;
+            this.errorCode = responseError.status;
+            this.errorName = responseError.error.error;
+          },
+        });
+      }
     });
   }
 }
