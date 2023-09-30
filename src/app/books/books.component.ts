@@ -24,13 +24,10 @@ export class BooksComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getSearch();
-    this.searchBook();
-  }
-
-  getSearch() {
     this.dataService.searchInput$.subscribe((search) => {
       this.searchInput = search;
+
+      this.searchBook();
     });
   }
 
@@ -54,6 +51,5 @@ export class BooksComponent implements OnInit {
         this.errorName = responseError.error.error;
       },
     });
-    this.dataService.setSearchInput('');
   }
 }

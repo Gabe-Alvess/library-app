@@ -13,5 +13,6 @@ export class SearchBarComponent {
 
   updateSearch() {
     this.dataService.setSearchInput(this.searchInput);
+    this.searchInput = '';
   }
 }
