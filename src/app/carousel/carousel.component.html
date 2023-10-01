@@ -8,9 +8,12 @@
   <carousel [interval]="7000" [showIndicators]="true" [isAnimated]="true">
     <slide *ngFor="let book of books">
       <div
-        class="w-[80vw] h-[60vh] flex items-center justify-center bg-zinc-900 rounded-3xl"
+        class="w-[80vw] h-[60vh] flex items-center justify-center bg-p-sBlue rounded-3xl"
       >
-        <div class="w-[250px] h-[400px] object-cover">
+        <div 
+        routerLink="/book-page"
+        (click)="updateBookId(book.id)"
+        class="w-[250px] h-[400px] object-cover cursor-pointer transition duration-300 ease-in-out hover:scale-105">
           <img [src]="book.imgURL" [alt]="book.title" class="w-60 shadow-2" />
         </div>
         <div class="ml-5 text-p-beige">

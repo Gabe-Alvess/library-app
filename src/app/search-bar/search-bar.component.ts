@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DataService } from '../service/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'search-bar',
@@ -9,10 +10,11 @@ import { DataService } from '../service/data.service';
 export class SearchBarComponent {
   searchInput: string = '';
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private router: Router) {}
 
   updateSearch() {
     this.dataService.setSearchInput(this.searchInput);
+    this.router.navigate(['books'])
     this.searchInput = '';
   }
 }

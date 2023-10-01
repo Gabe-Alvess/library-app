@@ -3,18 +3,19 @@
     type="text"
     id="search"
     [(ngModel)]="searchInput"
+    (keyup.enter)="updateSearch()"
     class="w-[35vw] p-3 rounded-lg m-4"
     placeholder="Search For Title / Author / Genre"
   />
-  <div
+
+  <button
     class="border-2 py-[12px] px-3 rounded-lg flex items-center hover:bg-green-500 hover:scale-110 transition duration-300"
+    (click)="updateSearch()"
   >
-    <button routerLink="/books" (click)="updateSearch()">
-      <img
-        class="w-7"
-        src="../../assets/icons/search-glass.svg"
-        alt="search button"
-      />
-    </button>
-  </div>
+    <img
+      class="w-7"
+      src="../../assets/icons/search-glass.svg"
+      alt="search button"
+    />
+  </button>
 </div>

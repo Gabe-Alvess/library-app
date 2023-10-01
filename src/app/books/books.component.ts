@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookService } from '../service/book.service';
 import { Book } from '../interfaces/Book';
 import { DataService } from '../service/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-books',
@@ -10,16 +11,16 @@ import { DataService } from '../service/data.service';
 })
 export class BooksComponent implements OnInit {
   books: Book[] = [];
-  notFound: boolean = false;
-
-  failed: boolean = false;
-  errorCode: string = '';
-  errorName: string = '';
 
   constructor(
     private bookService: BookService,
-    private dataService: DataService
+    private dataService: DataService,
+    private router: Router
   ) {}
+
+  updateBookId(bookId: number) {
+    this.dataService.setBookId(bookId)
+  }
 
   ngOnInit(): void {
     this.dataService.searchInput$.subscribe((search) => {
@@ -28,19 +29,23 @@ export class BooksComponent implements OnInit {
           next: (response: Book[]) => {
             this.books = response;
 
-            this.books.length === 0
-              ? (this.notFound = true)
-              : (this.notFound = false);
+            if (this.books.length === 0) {
+              this.dataService.setNotFound(true);
+              this.router.navigate(['error-page']);
+            } else {
+              this.dataService.setNotFound(false);
+            }
 
-            this.failed = false;
+            this.dataService.setFailedToConnect(false);
 
             console.log(this.books);
           },
           error: (responseError) => {
             console.error('Get error: ', responseError);
-            this.failed = true;
-            this.errorCode = responseError.status;
-            this.errorName = responseError.error.error;
+            this.dataService.setFailedToConnect(true);
+            this.dataService.setErrorCode(responseError.status);
+            this.dataService.setErrorName(responseError.error.error);
+            this.router.navigate(['error-page']);
           },
         });
       }

@@ -4,6 +4,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { BooksComponent } from './books/books.component';
+import { ErrorComponent } from './error/error.component';
+import { BookPageComponent } from './book-page/book-page.component';
 
 const routes: Routes = [
   {
@@ -21,6 +23,14 @@ const routes: Routes = [
   {
     path: 'books',
     component: BooksComponent,
+  },
+  {
+    path: 'book-page',
+    component: BookPageComponent,
+  },
+  {
+    path: 'error-page',
+    component: ErrorComponent,
   },
 ];
 

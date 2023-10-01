@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../interfaces/Book';
 import { BookService } from '../service/book.service';
+import { DataService } from '../service/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carousel',
@@ -10,24 +12,29 @@ import { BookService } from '../service/book.service';
 export class CarouselComponent implements OnInit {
   books: Book[] = [];
 
-  failed: boolean = false;
-  errorCode: string = '';
-  errorName: string = '';
+  constructor(
+    private bookService: BookService,
+    private dataService: DataService,
+    private router: Router
+  ) {}
 
-  constructor(private bookService: BookService) {}
+  updateBookId(bookId: number) {
+    this.dataService.setBookId(bookId)
+  }
 
   ngOnInit(): void {
     this.bookService.findPopularBooks().subscribe({
       next: (response: Book[]) => {
         this.books = response;
-        this.failed = false;
+        this.dataService.setFailedToConnect(false);
         console.log(this.books);
       },
       error: (responseError) => {
         console.error('Get error: ', responseError);
-        this.failed = true;
-        this.errorCode = responseError.status;
-        this.errorName = responseError.error.error;
+        this.dataService.setFailedToConnect(true);
+        this.dataService.setErrorCode(responseError.status);
+        this.dataService.setErrorName(responseError.error.error);
+        this.router.navigate(['error-page']);
       },
     });
   }

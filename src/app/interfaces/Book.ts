@@ -1,4 +1,5 @@
 export interface Book {
+  id: number;
   imgURL: string;
   title: string;
   author: string;

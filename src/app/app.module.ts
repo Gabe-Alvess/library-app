@@ -15,6 +15,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { BookPageComponent } from './book-page/book-page.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     BooksComponent,
     SearchBarComponent,
     CarouselComponent,
+    BookPageComponent,
   ],
   imports: [
     BrowserModule,
