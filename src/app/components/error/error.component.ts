@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../service/data.service';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-error',
@@ -15,19 +15,19 @@ export class ErrorComponent implements OnInit {
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
-    this.dataService.notFound$.subscribe((data) => {
+    this.dataService.getNotFound().subscribe((data) => {
       this.notFound = data;
     });
 
-    this.dataService.failedToConnect$.subscribe((data) => {
+    this.dataService.getFailedToConnect().subscribe((data) => {
       this.failedToConnect = data;
     });
 
-    this.dataService.errorName$.subscribe((name) => {
+    this.dataService.getErrorName().subscribe((name) => {
       this.errorName = name;
     });
 
-    this.dataService.errorCode$.subscribe((code) => {
+    this.dataService.getErrorCode().subscribe((code) => {
       this.errorCode = code;
     });
   }

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'search-bar',

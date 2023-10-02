@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Book } from '../interfaces/Book';
 
 @Injectable({
@@ -11,36 +11,52 @@ export class DataService {
   private notFound = new BehaviorSubject<boolean>(false);
   private errorName = new BehaviorSubject<string>('');
   private errorCode = new BehaviorSubject<number>(0);
-  private book = new Subject<Book>();
-
-  searchInput$ = this.searchInput.asObservable();
-  notFound$ = this.notFound.asObservable();
-  failedToConnect$ = this.failedToConnect.asObservable();
-  errorName$ = this.errorName.asObservable();
-  errorCode$ = this.errorCode.asObservable();
-  book$ = this.book.asObservable();
+  private book = new BehaviorSubject<Book | undefined>(undefined);
 
   setSearchInput(input: string) {
     this.searchInput.next(input);
+  }
+  getSearchInput() {
+    return this.searchInput.asObservable();
   }
 
   setFailedToConnect(failed: boolean) {
     this.failedToConnect.next(failed);
   }
 
+  getFailedToConnect() {
+    return this.failedToConnect.asObservable();
+  }
+
   setErrorName(name: string) {
     this.errorName.next(name);
+  }
+
+  getErrorName() {
+    return this.errorName.asObservable();
   }
 
   setErrorCode(code: number) {
     this.errorCode.next(code);
   }
 
+  getErrorCode() {
+    return this.errorCode.asObservable();
+  }
+
   setNotFound(notFound: boolean) {
     this.notFound.next(notFound);
   }
 
+  getNotFound() {
+    return this.notFound.asObservable();
+  }
+
   setBook(book: Book) {
     this.book.next(book);
+  }
+
+  getBook() {
+    return this.book.asObservable();
   }
 }

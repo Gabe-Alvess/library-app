@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../interfaces/Book';
-import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
+import { Book } from 'src/app/interfaces/Book';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'book-page',
@@ -16,7 +16,11 @@ export class BookPageComponent implements OnInit {
   ngOnInit(): void {
     const storedBook = localStorage.getItem('selectedBook');
 
-    this.dataService.book$.subscribe((clickedBook) => {
+    if (storedBook) {
+      this.book = JSON.parse(storedBook);
+    }
+
+    this.dataService.getBook().subscribe((clickedBook) => {
       if (clickedBook !== undefined) {
         this.book = clickedBook;
 
@@ -24,9 +28,5 @@ export class BookPageComponent implements OnInit {
         localStorage.setItem('selectedBook', JSON.stringify(clickedBook));
       }
     });
-
-    if (storedBook) {
-      this.book = JSON.parse(storedBook);
-    }
   }
 }

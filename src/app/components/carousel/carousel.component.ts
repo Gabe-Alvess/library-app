@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../interfaces/Book';
-import { BookService } from '../service/book.service';
-import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
+import { Book } from 'src/app/interfaces/Book';
+import { BookService } from 'src/app/service/book.service';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-carousel',
@@ -19,9 +19,8 @@ export class CarouselComponent implements OnInit {
   ) {}
 
   updateBook(book: Book) {
-    setTimeout(() => {
-      this.dataService.setBook(book);
-    },1)
+    this.dataService.setBook(book);
+    this.router.navigate(['book-page']);
   }
 
   ngOnInit(): void {

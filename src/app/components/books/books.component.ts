@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BookService } from '../service/book.service';
-import { Book } from '../interfaces/Book';
-import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
+import { Book } from 'src/app/interfaces/Book';
+import { BookService } from 'src/app/service/book.service';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-books',
@@ -19,13 +19,17 @@ export class BooksComponent implements OnInit {
   ) {}
 
   updateBook(book: Book) {
-    setTimeout(() => {
-      this.dataService.setBook(book);
-    },1)
+    this.dataService.setBook(book);
   }
 
   ngOnInit(): void {
-    this.dataService.searchInput$.subscribe((search) => {
+    const storedSearch = localStorage.getItem('lastSearch');
+
+    if (storedSearch) {
+      this.books = JSON.parse(storedSearch);
+    }
+
+    this.dataService.getSearchInput().subscribe((search) => {
       if (search.trim().length > 0) {
         this.bookService.searchForBooks(search).subscribe({
           next: (response: Book[]) => {
@@ -36,6 +40,8 @@ export class BooksComponent implements OnInit {
               this.router.navigate(['error-page']);
             } else {
               this.dataService.setNotFound(false);
+              localStorage.removeItem('lastSearch');
+              localStorage.setItem('lastSearch', JSON.stringify(response));
             }
 
             this.dataService.setFailedToConnect(false);
