@@ -1,14 +1,26 @@
-<div class="">
-  <div class="">
-    <img [src]="book?.imgURL" alt="" />
-  </div>
+<div *ngIf="book" class="h-[89vh] flex justify-center items-center">
+  <div
+    class="w-[80vw] h-[75vh] flex justify-evenly items-center bg-p-sBlue rounded-lg"
+  >
+    <img
+      class="w-[400px] h-[600px] object-contain"
+      [src]="book.imgURL"
+      alt=""
+    />
 
-  <div class="">
-    <h1 class="text-p-beige text-3xl">{{ book?.title }}</h1>
-    <h3 class="text-p-beige text-xl">By {{ book?.author }}</h3>
-    <p class="text-p-beige text-lg">{{ book?.description }}</p>
-    <p class="text-p-beige text-lg">{{ book?.genres }}</p>
-  </div>
+    <div
+      class="h-[550px] flex flex-col justify-evenly text-p-beige font-oswald"
+    >
+      <h1 class="text-6xl">{{ book.title }}</h1>
+      <h3 class="text-2xl">{{ book.author }}</h3>
+      <p class="text-xl max-w-3xl">{{ book.description }}</p>
+      <p class="text-xl"><strong>Genres:</strong> {{ book.genres }}</p>
 
-  <button class="text-p-beige text-lg">Borrow Book</button>
+      <button
+        class="p-2 text-xl rounded-lg bg-green-600 transition duration-300 hover:scale-105 hover:bg-green-500"
+      >
+        Borrow This Book
+      </button>
+    </div>
+  </div>
 </div>

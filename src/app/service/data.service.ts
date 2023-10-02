@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { Book } from '../interfaces/Book';
 
 @Injectable({
   providedIn: 'root',
@@ -10,14 +11,14 @@ export class DataService {
   private notFound = new BehaviorSubject<boolean>(false);
   private errorName = new BehaviorSubject<string>('');
   private errorCode = new BehaviorSubject<number>(0);
-  private bookId = new BehaviorSubject<number>(0);
+  private book = new Subject<Book>();
 
   searchInput$ = this.searchInput.asObservable();
   notFound$ = this.notFound.asObservable();
   failedToConnect$ = this.failedToConnect.asObservable();
   errorName$ = this.errorName.asObservable();
   errorCode$ = this.errorCode.asObservable();
-  bookId$ = this.bookId.asObservable();
+  book$ = this.book.asObservable();
 
   setSearchInput(input: string) {
     this.searchInput.next(input);
@@ -39,7 +40,7 @@ export class DataService {
     this.notFound.next(notFound);
   }
 
-  setBookId(id: number) {
-    this.bookId.next(id);
+  setBook(book: Book) {
+    this.book.next(book);
   }
 }

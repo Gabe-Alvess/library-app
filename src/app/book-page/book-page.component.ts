@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../interfaces/Book';
-import { BookService } from '../service/book.service';
 import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
 
@@ -12,28 +11,22 @@ import { Router } from '@angular/router';
 export class BookPageComponent implements OnInit {
   book?: Book;
 
-  constructor(
-    private dataService: DataService,
-    private bookService: BookService,
-    private router: Router
-  ) {}
+  constructor(private dataService: DataService, private router: Router) {}
 
   ngOnInit(): void {
-    this.dataService.bookId$.subscribe((id) => {
-      this.bookService.findBook(id).subscribe({
-        next: (response: Book) => {
-          this.book = response;
-          this.dataService.setFailedToConnect(false);
-          console.log(this.book);
-        },
-        error: (responseError) => {
-          console.error('Get error: ', responseError);
-          this.dataService.setFailedToConnect(true);
-          this.dataService.setErrorCode(responseError.status);
-          this.dataService.setErrorName(responseError.error.error);
-          this.router.navigate(['error-page']);
-        },
-      });
+    const storedBook = localStorage.getItem('selectedBook');
+
+    this.dataService.book$.subscribe((clickedBook) => {
+      if (clickedBook !== undefined) {
+        this.book = clickedBook;
+
+        localStorage.removeItem('selectedBook');
+        localStorage.setItem('selectedBook', JSON.stringify(clickedBook));
+      }
     });
+
+    if (storedBook) {
+      this.book = JSON.parse(storedBook);
+    }
   }
 }

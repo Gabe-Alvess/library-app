@@ -18,8 +18,10 @@ export class CarouselComponent implements OnInit {
     private router: Router
   ) {}
 
-  updateBookId(bookId: number) {
-    this.dataService.setBookId(bookId)
+  updateBook(book: Book) {
+    setTimeout(() => {
+      this.dataService.setBook(book);
+    },1)
   }
 
   ngOnInit(): void {
