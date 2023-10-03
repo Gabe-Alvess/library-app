@@ -1,0 +1,19 @@
+th {
+  @apply p-3 border-2;
+}
+
+td {
+  @apply border-2 p-5 max-w-lg;
+}
+
+.updt-btn {
+  @apply bg-green-600 p-2 rounded-lg uppercase transition duration-300 hover:bg-green-500 hover:scale-105;
+}
+
+.del-btn {
+  @apply bg-p-red p-2 rounded-lg uppercase transition duration-300 hover:bg-red-600 hover:scale-105;
+}
+
+.notFoundError {
+  @apply w-[26%] flex justify-evenly p-8 rounded-xl text-3xl text-center font-oswald bg-p-red text-amber-300;
+}

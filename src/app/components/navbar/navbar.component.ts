@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  isUserLoggedIn: boolean = true;
-  isAdminLoggedIn: boolean = false;
+  isUserLoggedIn: boolean = false;
+  isAdminLoggedIn: boolean = true;
 
   logout(): void {}
 }

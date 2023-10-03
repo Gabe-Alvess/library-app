@@ -1,0 +1,15 @@
+th {
+  @apply p-3 border-2;
+}
+
+td {
+  @apply border-2 p-5 max-w-lg;
+}
+
+.renew-btn {
+  @apply bg-green-700 p-2 rounded-lg uppercase transition duration-300 hover:bg-green-600 hover:scale-105;
+}
+
+.return-btn {
+  @apply bg-p-red p-2 rounded-lg uppercase transition duration-300 hover:bg-red-600 hover:scale-105;
+}

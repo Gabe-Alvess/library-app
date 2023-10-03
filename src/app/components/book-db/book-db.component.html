@@ -1,1 +1,57 @@
-<p>book-db works!</p>
+<section class="h-[88vh] flex justify-center items-center">
+  <div
+    class="w-[95vw] h-[80vh] bg-p-sBlue p-4 rounded-lg overflow-y-scroll scrollbar-none"
+  >
+    <div
+      *ngIf="noBooksFound"
+      class="w-full h-full flex justify-center items-center"
+    >
+      <div class="notFoundError">
+        <img src="../../assets/icons/bx-error.svg" alt="error icon" />
+        <p>There Are No Books in The DB!</p>
+      </div>
+    </div>
+
+    <table
+      *ngIf="!noBooksFound"
+      class="w-full text-p-beige text-2xl font-oswald text-center"
+    >
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Description</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Genres</th>
+          <th>Update Book</th>
+          <th>Delete Book</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let book of books">
+        <tr>
+          <td>
+            <img
+              [src]="book.imgURL"
+              alt="book image"
+              class="w-[200px] h-[250px] object-contain ml-auto mr-auto"
+            />
+          </td>
+          <td>
+            <p class="max-h-60 overflow-y-scroll scrollbar-none">
+              {{ book.description }}
+            </p>
+          </td>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.genres }}</td>
+          <td>
+            <button (click)="updateBook()" class="updt-btn">Update</button>
+          </td>
+          <td>
+            <button (click)="deleteBook()" class="del-btn">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
