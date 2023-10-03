@@ -9,13 +9,15 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
-import { BooksComponent } from './components/books/books.component';
+import { SearchPageComponent } from './components/search-page/search-page.component';
 import { BookPageComponent } from './components/book-page/book-page.component';
 import { ErrorComponent } from './components/error/error.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { SignupPageComponent } from './components/signup-page/signup-page.component';
 import { AddBookComponent } from './components/add-book/add-book.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { BookDbComponent } from './components/book-db/book-db.component';
+import { UserBooksComponent } from './components/user-books/user-books.component';
 
 @NgModule({
   declarations: [
@@ -26,11 +28,13 @@ import { FooterComponent } from './components/footer/footer.component';
     SignupPageComponent,
     FooterComponent,
     ErrorComponent,
-    BooksComponent,
+    SearchPageComponent,
     SearchBarComponent,
     CarouselComponent,
     BookPageComponent,
     AddBookComponent,
+    BookDbComponent,
+    UserBooksComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,72 @@
-<p>add-book works!</p>
+<section class="flex items-center justify-center text-p-beige p-10">
+  <div
+    class="flex flex-col items-center justify-around mr-5 w-[25vw] bg-p-sBlue p-10 rounded-lg font-oswald"
+  >
+    <h1 class="text-3xl uppercase mb-4">Add a new book</h1>
+    <form (ngSubmit)="onSubmit()">
+      <div
+        class="flex flex-col justify-evenly items-center text-xl w-[20vw] h-[65vh]"
+      >
+        <label for="title">Title:</label>
+        <input
+          class="field"
+          type="text"
+          name="title"
+          [(ngModel)]="book.title"
+        />
+
+        <label for="author">Author:</label>
+        <input
+          class="field"
+          type="text"
+          name="author"
+          [(ngModel)]="book.author"
+        />
+
+        <label for="genres">Genres:</label>
+        <input
+          class="field"
+          type="text"
+          name="genres"
+          [(ngModel)]="book.genres"
+        />
+
+        <label for="description">Description:</label>
+        <textarea
+          class="field"
+          name="description"
+          rows="5"
+          cols="33"
+          [(ngModel)]="book.description"
+        ></textarea>
+
+        <label for="img">Image URL:</label>
+        <input class="field" type="text" name="img" [(ngModel)]="book.imgURL" />
+
+        <button type="submit" class="btn">Add Book</button>
+      </div>
+    </form>
+  </div>
+
+  <div
+    *ngIf="newBook"
+    class="flex flex-col justify-evenly items-center text-xl w-[25vw] h-[80vh] bg-p-sBlue rounded-lg font-oswald"
+  >
+    <img
+      [src]="newBook.imgURL"
+      alt="book cover"
+      class="w-[200px] h-[300px] object-contain"
+    />
+
+    <h1 class="text-3xl">{{ newBook.title }}</h1>
+    <h3 class="text-lg">{{ newBook.author }}</h3>
+    <p
+      class="text-center max-w-xs max-h-52 overflow-y-scroll scrollbar-none p-3 border-2 rounded-md"
+    >
+      {{ newBook.description }}
+    </p>
+    <p><strong>Genres:</strong> {{ newBook.genres }}</p>
+
+    <p class="text-3xl text-green-400">Book successfully added!</p>
+  </div>
+</section>

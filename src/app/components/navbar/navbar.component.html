@@ -1,7 +1,8 @@
 <nav
   *ngIf="!isUserLoggedIn && !isAdminLoggedIn"
-  class="bg-p-sBlue w-screen flex justify-evenly items-center"
+  class="bg-p-sBlue w-screen flex justify-evenly items-center uppercase"
 >
+  >
   <div>
     <p class="text-5xl text-teal-300 font-mooli">Library | App</p>
   </div>
@@ -13,13 +14,13 @@
         <span class="go-span"> GO </span>
       </p>
     </a>
-    <a routerLink="/login" class="btn group">
+    <a routerLink="/login-page" class="btn group">
       <p>
         Login
         <span class="go-span"> GO </span>
       </p>
     </a>
-    <a routerLink="/signup" class="btn group">
+    <a routerLink="/signup-page" class="btn group">
       <p>
         Signup
         <span class="go-span"> GO </span>
@@ -30,7 +31,7 @@
 
 <nav
   *ngIf="isUserLoggedIn"
-  class="bg-p-sBlue w-screen flex justify-evenly items-center"
+  class="bg-p-sBlue w-screen flex justify-evenly items-center uppercase"
 >
   <div>
     <p class="text-5xl text-teal-300 font-mooli">Library | App</p>
@@ -60,7 +61,7 @@
 
 <nav
   *ngIf="isAdminLoggedIn"
-  class="bg-p-sBlue w-screen flex justify-evenly items-center"
+  class="bg-p-sBlue w-screen flex justify-evenly items-center uppercase"
 >
   <div>
     <p class="text-5xl text-teal-300 font-mooli">Library | App</p>

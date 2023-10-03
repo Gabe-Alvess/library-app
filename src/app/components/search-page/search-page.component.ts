@@ -5,11 +5,11 @@ import { BookService } from 'src/app/service/book.service';
 import { DataService } from 'src/app/service/data.service';
 
 @Component({
-  selector: 'app-books',
-  templateUrl: './books.component.html',
-  styleUrls: ['./books.component.css'],
+  selector: 'search-page',
+  templateUrl: './search-page.component.html',
+  styleUrls: ['./search-page.component.css'],
 })
-export class BooksComponent implements OnInit {
+export class SearchPageComponent implements OnInit {
   books: Book[] = [];
 
   constructor(

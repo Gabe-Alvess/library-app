@@ -1,0 +1,7 @@
+.field {
+  @apply p-2 rounded-md w-[80%] text-black text-center;
+}
+
+.btn {
+  @apply w-[40%] uppercase bg-green-600 text-p-beige p-3 rounded-md mt-2 transition duration-300 hover:scale-105 hover:bg-green-500;
+}

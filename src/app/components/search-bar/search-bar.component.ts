@@ -14,7 +14,7 @@ export class SearchBarComponent {
 
   updateSearch() {
     this.dataService.setSearchInput(this.searchInput);
-    this.router.navigate(['books'])
+    this.router.navigate(['search-page']);
     this.searchInput = '';
   }
 }

@@ -1,8 +1,6 @@
 <section class="flex flex-col items-center justify-evenly h-[75vh]">
   <div class="">
-    <h2 class="text-p-beige text-5xl font-oswald">
-      Most Popular Books
-    </h2>
+    <h2 class="text-p-beige text-5xl font-oswald">Most Popular Books</h2>
   </div>
 
   <carousel [interval]="8000" [showIndicators]="true" [isAnimated]="true">
@@ -10,27 +8,31 @@
       <div
         class="w-[85vw] p-11 flex justify-center items-center bg-p-sBlue rounded-xl"
       >
-        <div
-          class="cursor-pointer transition duration-300 ease-in-out hover:scale-105"
-          (click)="updateBook(book)"
-        >
-          <img
-            class="w-[400px] h-[500px] object-contain"
-            [src]="book.imgURL"
-            [alt]="book.title"
-          />
-        </div>
-        <div class="h-[400px] flex flex-col justify-evenly text-p-beige font-oswald">
-          <h3 class="text-5xl">
-            {{ book.title }}
-          </h3>
-          <p class="text-2xl">By {{ book.author }}</p>
-          <p
-            class="text-xl max-w-2xl max-h-64 overflow-y-scroll scrollbar-none"
+        <div class="w-[65vw] flex justify-evenly items-center">
+          <div
+            class="cursor-pointer transition duration-300 ease-in-out hover:scale-105"
+            (click)="updateBook(book)"
           >
-            {{ book.description }}
-          </p>
-          <p class="text-lg max-w-md">Genres: {{ book.genres }}</p>
+            <img
+              class="w-[350px] h-[500px] object-contain"
+              [src]="book.imgURL"
+              [alt]="book.title"
+            />
+          </div>
+          <div
+            class="h-[400px] flex flex-col justify-evenly text-p-beige font-oswald"
+          >
+            <h3 class="text-5xl max-w-3xl">
+              {{ book.title }}
+            </h3>
+            <p class="text-2xl">By {{ book.author }}</p>
+            <p
+              class="text-xl max-w-2xl max-h-64 overflow-y-scroll scrollbar-none"
+            >
+              {{ book.description }}
+            </p>
+            <p class="text-lg max-w-md">Genres: {{ book.genres }}</p>
+          </div>
         </div>
       </div>
     </slide>

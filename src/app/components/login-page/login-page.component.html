@@ -1,3 +1,29 @@
-<section>
-  <p class="text-p-beige text-2xl uppercase">login-page works!</p>
+<section
+  class="h-[88vh] flex items-center justify-center text-p-beige p-10"
+>
+  <form (ngSubmit)="onSubmit()">
+    <div
+      class="flex flex-col justify-evenly items-center text-xl w-[22vw] h-[60vh] bg-p-sBlue p-10 rounded-lg font-oswald"
+    >
+      <h1 class="text-3xl uppercase">Login</h1>
+
+      <input
+        class="field"
+        type="email"
+        name="title"
+        placeholder="Email"
+        [(ngModel)]="user.email"
+      />
+
+      <input
+        class="field"
+        type="password"
+        name="author"
+        placeholder="Password"
+        [(ngModel)]="user.password"
+      />
+
+      <button type="submit" class="btn">Login</button>
+    </div>
+  </form>
 </section>

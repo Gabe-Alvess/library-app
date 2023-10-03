@@ -1,3 +1,43 @@
-<section>
-  <p class="text-p-beige text-2xl uppercase">signup-page works!</p>
+<section class="h-[88vh] flex items-center justify-center text-p-beige p-10">
+  <form (ngSubmit)="onSubmit()">
+    <div
+      class="flex flex-col justify-evenly items-center text-xl w-[22vw] h-[65vh] bg-p-sBlue p-10 rounded-lg font-oswald"
+    >
+      <h1 class="text-3xl uppercase">signup</h1>
+
+      <input
+        class="field"
+        type="text"
+        name="title"
+        placeholder="Enter your first name"
+        [(ngModel)]="user.firstName"
+      />
+
+      <input
+        class="field"
+        type="text"
+        name="title"
+        placeholder="Enter your last name"
+        [(ngModel)]="user.lastName"
+      />
+
+      <input
+        class="field"
+        type="email"
+        name="title"
+        placeholder="Enter your email address"
+        [(ngModel)]="user.email"
+      />
+
+      <input
+        class="field"
+        type="password"
+        name="author"
+        placeholder="Enter your password"
+        [(ngModel)]="user.password"
+      />
+
+      <button type="submit" class="btn">signup</button>
+    </div>
+  </form>
 </section>
