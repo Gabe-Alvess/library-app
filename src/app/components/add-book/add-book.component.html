@@ -7,41 +7,54 @@
       <div
         class="flex flex-col justify-evenly items-center text-xl w-[20vw] h-[65vh]"
       >
-        <label for="title">Title:</label>
+        <input
+          class="field"
+          type="text"
+          name="img"
+          placeholder="Enter Image URL"
+          [(ngModel)]="book.imgURL"
+        />
+
         <input
           class="field"
           type="text"
           name="title"
+          placeholder="Enter Book Title"
           [(ngModel)]="book.title"
         />
 
-        <label for="author">Author:</label>
         <input
           class="field"
           type="text"
           name="author"
+          placeholder="Enter Author Name"
           [(ngModel)]="book.author"
         />
 
-        <label for="genres">Genres:</label>
         <input
           class="field"
           type="text"
           name="genres"
+          placeholder="Enter Book Genres"
           [(ngModel)]="book.genres"
         />
 
-        <label for="description">Description:</label>
+        <input
+          class="field"
+          type="text"
+          name="releaseDate"
+          placeholder="Enter Release Date"
+          [(ngModel)]="book.releaseDate"
+        />
+
         <textarea
           class="field"
           name="description"
+          placeholder="Enter Description"
           rows="5"
           cols="33"
           [(ngModel)]="book.description"
         ></textarea>
-
-        <label for="img">Image URL:</label>
-        <input class="field" type="text" name="img" [(ngModel)]="book.imgURL" />
 
         <button type="submit" class="btn">Add Book</button>
       </div>
@@ -60,12 +73,16 @@
 
     <h1 class="text-3xl">{{ newBook.title }}</h1>
     <h3 class="text-lg">{{ newBook.author }}</h3>
+
     <p
       class="text-center max-w-xs max-h-52 overflow-y-scroll scrollbar-none p-3 border-2 rounded-md"
     >
       {{ newBook.description }}
     </p>
+
     <p><strong>Genres:</strong> {{ newBook.genres }}</p>
+
+    <p>{{ newBook.releaseDate }}</p>
 
     <p class="text-3xl text-green-400">Book successfully added!</p>
   </div>

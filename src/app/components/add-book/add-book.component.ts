@@ -15,14 +15,7 @@ export class AddBookComponent {
   errorCode: string = '';
   errorName: string = '';
 
-  book: Book = {
-    id: 0,
-    imgURL: '',
-    title: '',
-    author: '',
-    genres: '',
-    description: '',
-  };
+  book: Book = {} as Book;
 
   constructor(
     private bookService: BookService,

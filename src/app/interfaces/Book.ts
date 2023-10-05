@@ -5,4 +5,5 @@ export interface Book {
   author: string;
   genres: string;
   description: string;
+  releaseDate: string;
 }
