@@ -9,6 +9,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { AddBookComponent } from './components/add-book/add-book.component';
 import { BookDbComponent } from './components/book-db/book-db.component';
 import { UserBooksComponent } from './components/user-books/user-books.component';
+import { UpdateBookComponent } from './components/update-book/update-book.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
   {
     path: 'add-book',
     component: AddBookComponent,
+  },
+  {
+    path: 'update-book',
+    component: UpdateBookComponent,
   },
   {
     path: 'book-db',

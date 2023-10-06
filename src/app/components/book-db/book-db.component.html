@@ -1,4 +1,4 @@
-<section class="h-[88vh] flex justify-center items-center">
+<section class="relative h-[88vh] flex justify-center items-center">
   <div
     class="w-[95vw] h-[80vh] bg-p-sBlue p-4 rounded-lg overflow-y-scroll scrollbar-none"
   >
@@ -12,8 +12,18 @@
       </div>
     </div>
 
+    <div
+      *ngIf="notDeleted"
+      class="w-full h-full flex justify-center items-center"
+    >
+      <div class="notFoundError">
+        <img src="../../assets/icons/bx-error.svg" alt="error icon" />
+        <p>{{ message }}</p>
+      </div>
+    </div>
+
     <table
-      *ngIf="!noBooksFound"
+      *ngIf="!noBooksFound && !notDeleted"
       class="w-full text-p-beige text-2xl font-oswald text-center"
     >
       <thead>
@@ -45,10 +55,14 @@
           <td>{{ book.author }}</td>
           <td>{{ book.genres }}</td>
           <td>
-            <button (click)="updateBook()" class="updt-btn">Update</button>
+            <button (click)="updateBook(book.id)" class="updt-btn">
+              Update
+            </button>
           </td>
           <td>
-            <button (click)="deleteBook()" class="del-btn">Delete</button>
+            <button (click)="deleteBook(book.id)" class="del-btn">
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>

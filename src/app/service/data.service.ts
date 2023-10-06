@@ -14,6 +14,7 @@ export class DataService {
   private book = new BehaviorSubject<Book | undefined>(undefined);
   private userLoggedIn = new BehaviorSubject<boolean>(false);
   private adminLoggedIn = new BehaviorSubject<boolean>(false);
+  private bookId = new BehaviorSubject<number>(0);
 
   setSearchInput(input: string) {
     this.searchInput.next(input);
@@ -77,5 +78,13 @@ export class DataService {
 
   isAdminLoggedIn() {
     return this.adminLoggedIn.asObservable();
+  }
+
+  setBookId(id: number) {
+    this.bookId.next(id);
+  }
+
+  getBookId() {
+    return this.bookId.asObservable();
   }
 }

@@ -13,6 +13,9 @@ export class BookDbComponent implements OnInit {
   books: Book[] = [];
   noBooksFound = false;
 
+  notDeleted: boolean = false;
+  message: string = '';
+
   constructor(
     private bookService: BookService,
     private dataService: DataService,
@@ -44,7 +47,26 @@ export class BookDbComponent implements OnInit {
     });
   }
 
-  updateBook() {}
+  updateBook(id: number) {
+    this.dataService.setBookId(id);
+    this.router.navigate(['update-book']);
+  }
 
-  deleteBook() {}
+  deleteBook(id: number) {
+    this.bookService.deleteBook(id).subscribe({
+      next: () => {
+        this.notDeleted = false;
+        this.router
+          .navigateByUrl('/', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate(['book-db']);
+          });
+      },
+      error: (error) => {
+        this.notDeleted = true;
+        this.message = `Status: ${error.status} An error occurred!`;
+        console.error('Delete error', error);
+      },
+    });
+  }
 }

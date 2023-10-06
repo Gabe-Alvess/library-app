@@ -31,4 +31,12 @@ export class BookService {
   addBook(book: Book): Observable<Book> {
     return this.http.post<Book>(`${this.apiUrl}/add`, book);
   }
+
+  updateBook(id: number, book: Book) {
+    return this.http.patch<Book>(`${this.apiUrl}/update?id=${id}`, book);
+  }
+
+  deleteBook(id: number) {
+    return this.http.delete(`${this.apiUrl}/delete?id=${id}`);
+  }
 }

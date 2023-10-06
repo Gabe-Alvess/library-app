@@ -15,7 +15,15 @@ export class AddBookComponent {
   errorCode: string = '';
   errorName: string = '';
 
-  book: Book = {} as Book;
+  book: Book = {
+    id: 0,
+    imgURL: '',
+    title: '',
+    author: '',
+    description: '',
+    genres: '',
+    releaseDate: '',
+  };
 
   constructor(
     private bookService: BookService,
@@ -37,5 +45,7 @@ export class AddBookComponent {
         this.router.navigate(['error-page']);
       },
     });
+
+    this.book = {} as Book;
   }
 }
