@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Book } from 'src/app/interfaces/Book';
-import { BookService } from 'src/app/service/book.service';
+import { AdminService } from 'src/app/service/admin.service';
 import { DataService } from 'src/app/service/data.service';
 
 @Component({
@@ -26,13 +26,13 @@ export class AddBookComponent {
   };
 
   constructor(
-    private bookService: BookService,
+    private adminService: AdminService,
     private dataService: DataService,
     private router: Router
   ) {}
 
   onSubmit() {
-    this.bookService.addBook(this.book).subscribe({
+    this.adminService.addBook(this.book).subscribe({
       next: (response: Book) => {
         this.newBook = response;
         this.dataService.setFailedToConnect(false);

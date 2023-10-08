@@ -1,6 +1,13 @@
 <section>
-  <h1 class="text-6xl text-p-beige font-oswald pt-4 pl-10">
-    Welcome To Our Library App
-  </h1>
+  <div *ngIf="!isLoggedIn">
+    <h1 class="text-6xl text-p-beige font-oswald pt-4 pl-10">
+      Welcome To The Library App
+    </h1>
+  </div>
+  <div *ngIf="isLoggedIn">
+    <h1 class="text-6xl text-p-beige font-oswald pt-4 pl-10">
+      Welcome {{user.firstName && user.lastName}}
+    </h1>
+  </div>
   <app-carousel></app-carousel>
 </section>

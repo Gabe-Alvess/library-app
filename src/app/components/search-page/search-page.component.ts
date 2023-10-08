@@ -23,7 +23,7 @@ export class SearchPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const storedSearch = localStorage.getItem('lastSearch');
+    const storedSearch = sessionStorage.getItem('lastSearch');
 
     if (storedSearch) {
       this.books = JSON.parse(storedSearch);
@@ -40,19 +40,19 @@ export class SearchPageComponent implements OnInit {
               this.router.navigate(['error-page']);
             } else {
               this.dataService.setNotFound(false);
-              localStorage.removeItem('lastSearch');
-              localStorage.setItem('lastSearch', JSON.stringify(response));
+              sessionStorage.removeItem('lastSearch');
+              sessionStorage.setItem('lastSearch', JSON.stringify(response));
             }
 
             this.dataService.setFailedToConnect(false);
 
             console.log(this.books);
           },
-          error: (responseError) => {
-            console.error('Get error: ', responseError);
+          error: (errorResponse) => {
+            console.error('Search error: ', errorResponse);
             this.dataService.setFailedToConnect(true);
-            this.dataService.setErrorCode(responseError.status);
-            this.dataService.setErrorName(responseError.error.error);
+            this.dataService.setErrorCode(errorResponse.status);
+            this.dataService.setErrorName(errorResponse.error.error);
             this.router.navigate(['error-page']);
           },
         });

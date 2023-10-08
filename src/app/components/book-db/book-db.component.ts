@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Book } from 'src/app/interfaces/Book';
+import { AdminService } from 'src/app/service/admin.service';
 import { BookService } from 'src/app/service/book.service';
 import { DataService } from 'src/app/service/data.service';
 
@@ -13,10 +14,8 @@ export class BookDbComponent implements OnInit {
   books: Book[] = [];
   noBooksFound = false;
 
-  notDeleted: boolean = false;
-  message: string = '';
-
   constructor(
+    private adminService: AdminService,
     private bookService: BookService,
     private dataService: DataService,
     private router: Router
@@ -53,19 +52,21 @@ export class BookDbComponent implements OnInit {
   }
 
   deleteBook(id: number) {
-    this.bookService.deleteBook(id).subscribe({
+    this.adminService.deleteBook(id).subscribe({
       next: () => {
-        this.notDeleted = false;
         this.router
           .navigateByUrl('/', { skipLocationChange: true })
           .then(() => {
             this.router.navigate(['book-db']);
           });
+        this.dataService.setFailedToConnect(false);
       },
-      error: (error) => {
-        this.notDeleted = true;
-        this.message = `Status: ${error.status} An error occurred!`;
-        console.error('Delete error', error);
+      error: (errorResponse) => {
+        console.error('Delete error', errorResponse);
+        this.dataService.setFailedToConnect(true);
+        this.dataService.setErrorCode(errorResponse.status);
+        this.dataService.setErrorName(errorResponse.error.error);
+        this.router.navigate(['error-page']);
       },
     });
   }

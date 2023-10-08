@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/interfaces/User';
-import { BookService } from 'src/app/service/book.service';
+import { AuthService } from 'src/app/service/auth.service';
 import { DataService } from 'src/app/service/data.service';
 
 @Component({
@@ -10,13 +9,54 @@ import { DataService } from 'src/app/service/data.service';
   styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent {
-  user: User = {} as User;
+  userInfo = {
+    email: '',
+    password: '',
+  };
+
+  incorrectLogin: boolean = false;
+  message: string = '';
 
   constructor(
-    private bookService: BookService,
+    private authService: AuthService,
     private dataService: DataService,
     private router: Router
   ) {}
 
-  onSubmit() {}
+  onSubmit() {
+    this.authService.login(this.userInfo).subscribe({
+      next: (response: any) => {
+        localStorage.setItem('email', response.email);
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('role', response.role);
+        this.dataService.setFailedToConnect(false);
+        this.router.navigate(['']);
+      },
+      error: (errorResponse) => {
+        if (errorResponse.status === 400) {
+          this.message = 'Invalid username or password!';
+          this.incorrectLogin = true;
+          setTimeout(() => {
+            this.incorrectLogin = false;
+          }, 5000);
+        } else if (errorResponse.status === 404) {
+          this.message = 'You must have an account to login!';
+          this.incorrectLogin = true;
+          setTimeout(() => {
+            this.incorrectLogin = false;
+          }, 5000);
+        } else {
+          this.dataService.setFailedToConnect(true);
+          this.dataService.setErrorCode(errorResponse.status);
+          this.dataService.setErrorName(errorResponse.error);
+          this.router.navigate(['error-page']);
+        }
+      },
+    });
+
+    this.userInfo = {
+      email: '',
+      password: '',
+    };
+  }
 }

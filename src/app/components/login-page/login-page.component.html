@@ -1,5 +1,5 @@
 <section
-  class="h-[88vh] flex items-center justify-center text-p-beige p-10"
+  class="relative h-[88vh] flex items-center justify-center text-p-beige p-10"
 >
   <form (ngSubmit)="onSubmit()">
     <div
@@ -12,7 +12,7 @@
         type="email"
         name="title"
         placeholder="Email"
-        [(ngModel)]="user.email"
+        [(ngModel)]="userInfo.email"
       />
 
       <input
@@ -20,10 +20,17 @@
         type="password"
         name="author"
         placeholder="Password"
-        [(ngModel)]="user.password"
+        [(ngModel)]="userInfo.password"
       />
 
       <button type="submit" class="btn">Login</button>
     </div>
   </form>
+
+  <div
+    *ngIf="incorrectLogin"
+    class="absolute top-5 right-5 p-3 rounded-lg bg-red-200 bg-opacity-90 text-red-600 text-2xl font-mooli font-bold"
+  >
+    <p>{{ message }}</p>
+  </div>
 </section>

@@ -28,7 +28,6 @@ export class CarouselComponent implements OnInit {
       next: (response: Book[]) => {
         this.books = response;
         this.dataService.setFailedToConnect(false);
-        console.log(this.books);
       },
       error: (responseError) => {
         console.error('Get error: ', responseError);

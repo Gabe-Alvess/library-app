@@ -12,8 +12,6 @@ export class DataService {
   private errorName = new BehaviorSubject<string>('');
   private errorCode = new BehaviorSubject<number>(0);
   private book = new BehaviorSubject<Book | undefined>(undefined);
-  private userLoggedIn = new BehaviorSubject<boolean>(false);
-  private adminLoggedIn = new BehaviorSubject<boolean>(false);
   private bookId = new BehaviorSubject<number>(0);
 
   setSearchInput(input: string) {
@@ -62,22 +60,6 @@ export class DataService {
 
   getBook() {
     return this.book.asObservable();
-  }
-
-  setIsUserLoggedIn(loggedIn: boolean) {
-    this.userLoggedIn.next(loggedIn);
-  }
-
-  isUserLoggedIn() {
-    return this.userLoggedIn.asObservable();
-  }
-
-  setAdminLoggedIn(loggedIn: boolean) {
-    this.adminLoggedIn.next(loggedIn);
-  }
-
-  isAdminLoggedIn() {
-    return this.adminLoggedIn.asObservable();
   }
 
   setBookId(id: number) {

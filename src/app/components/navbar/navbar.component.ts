@@ -1,13 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck } from '@angular/core';
 
 @Component({
   selector: 'navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent {
-  isUserLoggedIn: boolean = false;
-  isAdminLoggedIn: boolean = true;
+export class NavbarComponent implements DoCheck {
+  isUser: boolean = false;
+  isAdmin: boolean = false;
 
-  logout(): void {}
+  constructor() {}
+
+  ngDoCheck(): void {
+    this.isUser = localStorage.getItem('role') === 'USER' ? true : false;
+    this.isAdmin = localStorage.getItem('role') === 'ADMIN' ? true : false;
+  }
+
+  logout(): void {
+    localStorage.clear();
+  }
 }

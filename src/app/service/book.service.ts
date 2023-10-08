@@ -7,7 +7,7 @@ import { Book } from '../interfaces/Book';
   providedIn: 'root',
 })
 export class BookService {
-  private apiUrl = `http://localhost:8080/books`;
+  private apiUrl = `http://localhost:8080/book`;
   constructor(private http: HttpClient) {}
 
   searchForBooks(searchInput: string) {
@@ -16,27 +16,15 @@ export class BookService {
     );
   }
 
-  findBook(id: number) {
-    return this.http.get<Book>(`${this.apiUrl}/book?id=${id}`);
-  }
-
-  findBooks() {
-    return this.http.get<Book[]>(`${this.apiUrl}/all`);
-  }
-
   findPopularBooks() {
     return this.http.get<Book[]>(`${this.apiUrl}/popular`);
   }
 
-  addBook(book: Book): Observable<Book> {
-    return this.http.post<Book>(`${this.apiUrl}/add`, book);
+  findBook(id: number) {
+    return this.http.get<Book>(`${this.apiUrl}/get?id=${id}`);
   }
 
-  updateBook(id: number, book: Book) {
-    return this.http.patch<Book>(`${this.apiUrl}/update?id=${id}`, book);
-  }
-
-  deleteBook(id: number) {
-    return this.http.delete(`${this.apiUrl}/delete?id=${id}`);
+  findBooks() {
+    return this.http.get<Book[]>(`${this.apiUrl}/getAll`);
   }
 }

@@ -1,5 +1,5 @@
 <nav
-  *ngIf="!isUserLoggedIn && !isAdminLoggedIn"
+  *ngIf="!isUser && !isAdmin"
   class="bg-p-sBlue w-screen flex justify-evenly items-center uppercase"
 >
   >
@@ -30,7 +30,7 @@
 </nav>
 
 <nav
-  *ngIf="isUserLoggedIn"
+  *ngIf="isUser"
   class="bg-p-sBlue w-screen flex justify-evenly items-center uppercase"
 >
   <div>
@@ -60,7 +60,7 @@
 </nav>
 
 <nav
-  *ngIf="isAdminLoggedIn"
+  *ngIf="isAdmin"
   class="bg-p-sBlue w-screen flex justify-evenly items-center uppercase"
 >
   <div>

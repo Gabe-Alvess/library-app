@@ -1,4 +1,6 @@
-<section class="h-[88vh] flex items-center justify-center text-p-beige p-10">
+<section
+  class="relative h-[88vh] flex items-center justify-center text-p-beige p-10"
+>
   <form (ngSubmit)="onSubmit()">
     <div
       class="flex flex-col justify-evenly items-center text-xl w-[22vw] h-[65vh] bg-p-sBlue p-10 rounded-lg font-oswald"
@@ -40,4 +42,11 @@
       <button type="submit" class="btn">signup</button>
     </div>
   </form>
+
+  <div
+    *ngIf="success"
+    class="absolute top-5 right-5 p-3 rounded-lg bg-green-200 bg-opacity-90 text-green-600 text-2xl font-mooli font-bold"
+  >
+    <p>Account successfully registered!</p>
+  </div>
 </section>

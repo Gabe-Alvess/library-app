@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Book } from 'src/app/interfaces/Book';
-import { BookService } from 'src/app/service/book.service';
+import { AdminService } from 'src/app/service/admin.service';
 import { DataService } from 'src/app/service/data.service';
 
 @Component({
@@ -26,23 +26,23 @@ export class UpdateBookComponent {
   };
 
   constructor(
-    private bookService: BookService,
+    private adminService: AdminService,
     private dataService: DataService,
     private router: Router
   ) {}
 
   onSubmit() {
     this.dataService.getBookId().subscribe((id) => {
-      this.bookService.updateBook(id, this.book).subscribe({
+      this.adminService.updateBook(id, this.book).subscribe({
         next: (response: Book) => {
           this.updatedBook = response;
           this.dataService.setFailedToConnect(false);
         },
-        error: (responseError) => {
-          console.error('Get error: ', responseError);
+        error: (errorResponse) => {
+          console.error('Get error: ', errorResponse);
           this.dataService.setFailedToConnect(true);
-          this.dataService.setErrorCode(responseError.status);
-          this.dataService.setErrorName(responseError.error.error);
+          this.dataService.setErrorCode(errorResponse.status);
+          this.dataService.setErrorName(errorResponse.error.error);
           this.router.navigate(['error-page']);
         },
       });

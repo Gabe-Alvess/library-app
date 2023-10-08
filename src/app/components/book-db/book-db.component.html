@@ -12,18 +12,8 @@
       </div>
     </div>
 
-    <div
-      *ngIf="notDeleted"
-      class="w-full h-full flex justify-center items-center"
-    >
-      <div class="notFoundError">
-        <img src="../../assets/icons/bx-error.svg" alt="error icon" />
-        <p>{{ message }}</p>
-      </div>
-    </div>
-
     <table
-      *ngIf="!noBooksFound && !notDeleted"
+      *ngIf="!noBooksFound"
       class="w-full text-p-beige text-2xl font-oswald text-center"
     >
       <thead>
