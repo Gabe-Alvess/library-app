@@ -24,10 +24,27 @@ export class CarouselComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    /* TODO: Find a way to check if the there are no updates in the popular books list! 
+      So that there is no need to make a request every time.
+    */
+
+    // const popularBooks = sessionStorage.getItem('popularBooks');
+
+    // if (popularBooks) {
+    //   this.books = JSON.parse(popularBooks);
+
+    // } else {
+    this.findPopularBooks();
+    // }
+  }
+
+  findPopularBooks() {
     this.bookService.findPopularBooks().subscribe({
       next: (response: Book[]) => {
         this.books = response;
         this.dataService.setFailedToConnect(false);
+        // sessionStorage.removeItem('popularBooks');
+        // sessionStorage.setItem('popularBooks', JSON.stringify(response));
       },
       error: (responseError) => {
         console.error('Get error: ', responseError);

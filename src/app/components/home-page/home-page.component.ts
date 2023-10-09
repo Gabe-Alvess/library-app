@@ -8,7 +8,7 @@ import { UserService } from 'src/app/service/user.service';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css'],
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, DoCheck {
   isLoggedIn: boolean = false;
   email: string = '';
 
@@ -23,14 +23,32 @@ export class HomePageComponent implements OnInit {
     private router: Router
   ) {}
 
+  ngDoCheck(): void {
+    const token = localStorage.getItem('token');
+    this.isLoggedIn = token ? true : false;
+  }
+
   ngOnInit(): void {
-    if (localStorage.getItem('token')) {
-      this.isLoggedIn = true;
+    const userNamesFound = sessionStorage.getItem('userNames');
+
+    if (userNamesFound) {
+      this.user = JSON.parse(userNamesFound);
+    } else {
+      this.findUserNames();
+    }
+  }
+
+  findUserNames() {
+    const token = localStorage.getItem('token');
+
+    if (token) {
       this.email = localStorage.getItem('email') as string;
 
       this.userService.getUserName(this.email).subscribe({
         next: (response: any) => {
           this.user = response;
+          sessionStorage.removeItem('userNames');
+          sessionStorage.setItem('userNames', JSON.stringify(response));
           this.dataService.setFailedToConnect(false);
         },
         error: (errorResponse) => {

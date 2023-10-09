@@ -18,5 +18,6 @@ export class NavbarComponent implements DoCheck {
 
   logout(): void {
     localStorage.clear();
+    sessionStorage.removeItem('userNames');
   }
 }

@@ -1,25 +1,35 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  private options = {};
+  private headers = new HttpHeaders();
+  private token = localStorage.getItem('token');
   private apiUrl = `http://localhost:8080/user`;
+
   constructor(private http: HttpClient) {}
 
-  getUserName(email: string) {
-    let headers = new HttpHeaders({});
-
-    if (localStorage.getItem('token')) {
-      const token = localStorage.getItem('token');
-
-      headers = new HttpHeaders({
-        Authorization: `Bearer ${token}`,
+  private initializeHeaders() {
+    if (this.token) {
+      this.headers = new HttpHeaders({
+        Authorization: `Bearer ${this.token}`,
       });
-    }
 
-    return this.http.get<any>(`${this.apiUrl}/get?email=${email}`, { headers });
+      this.options = {
+        headers: this.headers,
+      };
+    }
+  }
+
+  getUserName(email: string) {
+    this.initializeHeaders();
+
+    return this.http.get<any>(
+      `${this.apiUrl}/get?email=${email}`,
+      this.options
+    );
   }
 }
