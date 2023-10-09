@@ -8,19 +8,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class AdminService {
   private options = {};
-  private headers = new HttpHeaders();
-  private token = localStorage.getItem('token');
   private apiUrl = `http://localhost:8080/book`;
   constructor(private http: HttpClient) {}
 
   private initializeHeaders() {
-    if (this.token) {
-      this.headers = new HttpHeaders({
-        Authorization: `Bearer ${this.token}`,
-      });
+    const token = localStorage.getItem('token');
 
+    if (token) {
       this.options = {
-        headers: this.headers,
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${token}`,
+        }),
       };
     }
   }
