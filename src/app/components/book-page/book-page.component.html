@@ -11,12 +11,18 @@
     <div
       class="h-[550px] flex flex-col justify-evenly text-p-beige font-oswald"
     >
-      <h1 class="text-6xl">{{ book.title }}</h1>
+      <h1 class="text-5xl max-w-2xl">{{ book.title }}</h1>
       <h3 class="text-2xl">{{ book.author }}</h3>
-      <p class="text-xl max-w-3xl">{{ book.description }}</p>
-      <p class="text-xl"><strong>Genres:</strong> {{ book.genres }}</p>
+      <p
+        class="text-xl max-w-3xl max-h-64 overflow-y-scroll overflow-x-hidden scrollbar-none"
+      >
+        {{ book.description }}
+      </p>
+      <p class="text-xl">Genres: {{ book.genres }}</p>
+      <p class="text-lg">Release Date: {{ book.releaseDate }}</p>
 
       <button
+        (click)="borrowBook()"
         class="p-2 text-xl rounded-lg bg-green-600 transition duration-300 hover:scale-105 hover:bg-green-500"
       >
         Borrow This Book

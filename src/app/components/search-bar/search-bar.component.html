@@ -3,7 +3,7 @@
     type="text"
     id="search"
     [(ngModel)]="searchInput"
-    (keyup.enter)="updateSearch()"
+    (keydown.enter)="updateSearch()"
     class="w-[35vw] p-3 rounded-lg m-4"
     placeholder="Search For Title / Author / Genre"
   />

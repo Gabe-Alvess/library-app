@@ -10,7 +10,6 @@ import { DataService } from 'src/app/service/data.service';
   styleUrls: ['./update-book.component.css'],
 })
 export class UpdateBookComponent {
-  updatedBook?: Book;
   failed: boolean = false;
   errorCode: string = '';
   errorName: string = '';
@@ -34,13 +33,15 @@ export class UpdateBookComponent {
   onSubmit() {
     this.dataService.getBookId().subscribe((id) => {
       this.adminService.updateBook(id, this.book).subscribe({
-        next: (response: Book) => {
-          this.updatedBook = response;
+        next: () => {
+          this.router.navigate(['book-db']);
+          this.dataService.setUpdateBook(true);
           this.dataService.setFailedToConnect(false);
         },
         error: (errorResponse) => {
           console.error('Get error: ', errorResponse);
           this.dataService.setFailedToConnect(true);
+          this.dataService.setUpdateBook(false);
           this.dataService.setErrorCode(errorResponse.status);
           this.dataService.setErrorName(errorResponse.error.error);
           this.router.navigate(['error-page']);

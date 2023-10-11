@@ -5,16 +5,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UserService {
-  private options = {};
+  private headers = {};
   private apiUrl = `http://localhost:8080/user`;
 
   constructor(private http: HttpClient) {}
 
   private initializeHeaders() {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('Token');
 
     if (token) {
-      this.options = {
+      this.headers = {
         headers: new HttpHeaders({
           Authorization: `Bearer ${token}`,
         }),
@@ -26,7 +26,7 @@ export class UserService {
     this.initializeHeaders();
     return this.http.get<any>(
       `${this.apiUrl}/get?email=${email}`,
-      this.options
+      this.headers
     );
   }
 }

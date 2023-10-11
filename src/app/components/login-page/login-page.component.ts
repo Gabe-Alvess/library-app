@@ -26,25 +26,19 @@ export class LoginPageComponent {
   onSubmit() {
     this.authService.login(this.userInfo).subscribe({
       next: (response: any) => {
-        localStorage.setItem('email', response.email);
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('role', response.role);
+        sessionStorage.setItem('Token', response.token);
+        sessionStorage.setItem('Email', response.email);
+        sessionStorage.setItem('Role', response.role);
         this.dataService.setFailedToConnect(false);
         this.router.navigate(['']);
       },
       error: (errorResponse) => {
         if (errorResponse.status === 400) {
           this.message = 'Invalid username or password!';
-          this.incorrectLogin = true;
-          setTimeout(() => {
-            this.incorrectLogin = false;
-          }, 5000);
+          this.showErrorMessage();
         } else if (errorResponse.status === 404) {
           this.message = 'You must have an account to login!';
-          this.incorrectLogin = true;
-          setTimeout(() => {
-            this.incorrectLogin = false;
-          }, 5000);
+          this.showErrorMessage();
         } else {
           this.dataService.setFailedToConnect(true);
           this.dataService.setErrorCode(errorResponse.status);
@@ -58,5 +52,12 @@ export class LoginPageComponent {
       email: '',
       password: '',
     };
+  }
+
+  showErrorMessage() {
+    this.incorrectLogin = true;
+    setTimeout(() => {
+      this.incorrectLogin = false;
+    }, 5000);
   }
 }

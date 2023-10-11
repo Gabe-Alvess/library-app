@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Book } from 'src/app/interfaces/Book';
 import { AdminService } from 'src/app/service/admin.service';
@@ -10,9 +10,12 @@ import { DataService } from 'src/app/service/data.service';
   templateUrl: './book-db.component.html',
   styleUrls: ['./book-db.component.css'],
 })
-export class BookDbComponent implements OnInit {
+export class BookDbComponent implements OnInit, DoCheck {
   books: Book[] = [];
   noBooksFound = false;
+  success: boolean = false;
+  message: string = '';
+  updateTable: boolean = false;
 
   constructor(
     private adminService: AdminService,
@@ -23,6 +26,15 @@ export class BookDbComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllBooks();
+    this.successfullyUpdated();
+  }
+
+  ngDoCheck(): void {
+    if (this.updateTable) {
+      this.getAllBooks();
+    }
+
+    this.updateTable = false;
   }
 
   getAllBooks() {
@@ -51,14 +63,24 @@ export class BookDbComponent implements OnInit {
     this.router.navigate(['update-book']);
   }
 
+  successfullyUpdated() {
+    this.dataService.getUpdateBook().subscribe((boolean) => {
+      if (boolean) {
+        this.message = 'Book successfully updated!';
+        this.showMessage();
+      }
+    });
+    this.dataService.setUpdateBook(false);
+  }
+
   deleteBook(id: number) {
     this.adminService.deleteBook(id).subscribe({
       next: () => {
-        this.router
-          .navigateByUrl('/', { skipLocationChange: true })
-          .then(() => {
-            this.router.navigate(['book-db']);
-          });
+        this.message = 'Book successfully deleted!';
+        this.showMessage();
+
+        this.updateTable = true;
+
         this.dataService.setFailedToConnect(false);
       },
       error: (errorResponse) => {
@@ -69,5 +91,12 @@ export class BookDbComponent implements OnInit {
         this.router.navigate(['error-page']);
       },
     });
+  }
+
+  showMessage() {
+    this.success = true;
+    setTimeout(() => {
+      this.success = false;
+    }, 5000);
   }
 }

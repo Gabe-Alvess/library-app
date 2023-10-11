@@ -7,15 +7,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AdminService {
-  private options = {};
+  private headers = {};
   private apiUrl = `http://localhost:8080/book`;
   constructor(private http: HttpClient) {}
 
   private initializeHeaders() {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('Token');
 
     if (token) {
-      this.options = {
+      this.headers = {
         headers: new HttpHeaders({
           Authorization: `Bearer ${token}`,
         }),
@@ -25,7 +25,7 @@ export class AdminService {
 
   addBook(book: Book): Observable<Book> {
     this.initializeHeaders();
-    return this.http.post<Book>(`${this.apiUrl}/adm/add`, book, this.options);
+    return this.http.post<Book>(`${this.apiUrl}/adm/add`, book, this.headers);
   }
 
   addBooks(books: Book[]): Observable<Book> {
@@ -33,21 +33,21 @@ export class AdminService {
     return this.http.post<Book>(
       `${this.apiUrl}/adm/multiAdd`,
       books,
-      this.options
+      this.headers
     );
   }
 
-  updateBook(id: number, book: Book): Observable<Book> {
+  updateBook(id: number, book: Book) {
     this.initializeHeaders();
-    return this.http.patch<Book>(
+    return this.http.patch(
       `${this.apiUrl}/adm/update?id=${id}`,
       book,
-      this.options
+      this.headers
     );
   }
 
   deleteBook(id: number) {
     this.initializeHeaders();
-    return this.http.delete(`${this.apiUrl}/adm/delete?id=${id}`, this.options);
+    return this.http.delete(`${this.apiUrl}/adm/delete?id=${id}`, this.headers);
   }
 }

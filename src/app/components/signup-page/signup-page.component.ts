@@ -39,16 +39,11 @@ export class SignupPageComponent {
         this.success = false;
         this.dataService.setFailedToConnect(true);
         this.dataService.setErrorCode(errorResponse.status);
-        this.dataService.setErrorName(errorResponse.error.error);
+        this.dataService.setErrorName(errorResponse.error);
         this.router.navigate(['error-page']);
       },
     });
 
-    this.user = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-    };
+    this.user = {} as User;
   }
 }

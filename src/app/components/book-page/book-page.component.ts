@@ -14,7 +14,7 @@ export class BookPageComponent implements OnInit {
   constructor(private dataService: DataService, private router: Router) {}
 
   ngOnInit(): void {
-    const storedBook = localStorage.getItem('selectedBook');
+    const storedBook = sessionStorage.getItem('Selected Book');
 
     if (storedBook) {
       this.book = JSON.parse(storedBook);
@@ -24,9 +24,11 @@ export class BookPageComponent implements OnInit {
       if (clickedBook !== undefined) {
         this.book = clickedBook;
 
-        localStorage.removeItem('selectedBook');
-        localStorage.setItem('selectedBook', JSON.stringify(clickedBook));
+        sessionStorage.removeItem('Selected Book');
+        sessionStorage.setItem('Selected Book', JSON.stringify(clickedBook));
       }
     });
   }
+
+  borrowBook() {}
 }

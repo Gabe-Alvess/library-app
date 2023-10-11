@@ -1,6 +1,6 @@
 <section class="relative h-[88vh] flex justify-center items-center">
   <div
-    class="w-[95vw] h-[80vh] bg-p-sBlue p-4 rounded-lg overflow-y-scroll scrollbar-none"
+    class="w-[95vw] h-[75vh] bg-p-sBlue p-4 rounded-lg overflow-y-scroll scrollbar-none"
   >
     <div
       *ngIf="noBooksFound"
@@ -37,7 +37,9 @@
             />
           </td>
           <td>
-            <p class="max-h-60 overflow-y-scroll scrollbar-none">
+            <p
+              class="max-h-60 overflow-y-scroll overflow-x-hidden scrollbar-none text-ellipsis"
+            >
               {{ book.description }}
             </p>
           </td>
@@ -57,5 +59,12 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <div
+    *ngIf="success"
+    class="absolute top-2 right-5 p-3 rounded-lg bg-green-200 bg-opacity-90 text-green-600 text-2xl font-mooli font-bold"
+  >
+    <p>{{ message }}</p>
   </div>
 </section>

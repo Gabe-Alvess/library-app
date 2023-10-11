@@ -23,39 +23,47 @@ export class SearchPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const storedSearch = sessionStorage.getItem('lastSearch');
+    this.search();
+  }
 
-    if (storedSearch) {
-      this.books = JSON.parse(storedSearch);
-    }
+  // TODO: Bring the book not not found message back to the search page!!!
 
+  search() {
     this.dataService.getSearchInput().subscribe((search) => {
       if (search.trim().length > 0) {
         this.bookService.searchForBooks(search).subscribe({
           next: (response: Book[]) => {
             this.books = response;
 
-            if (this.books.length === 0) {
+            this.dataService.setNotFound(false);
+            sessionStorage.removeItem('Last Search');
+            sessionStorage.setItem('Last Search', JSON.stringify(response));
+
+            this.dataService.setSearchInput('');
+            this.dataService.setFailedToConnect(false);
+          },
+
+          error: (errorResponse) => {
+            if (errorResponse.status === 404) {
               this.dataService.setNotFound(true);
+              this.dataService.setSearchInput('');
               this.router.navigate(['error-page']);
             } else {
-              this.dataService.setNotFound(false);
-              sessionStorage.removeItem('lastSearch');
-              sessionStorage.setItem('lastSearch', JSON.stringify(response));
+              console.error('Search error: ', errorResponse);
+              this.dataService.setSearchInput('');
+              this.dataService.setFailedToConnect(true);
+              this.dataService.setErrorCode(errorResponse.status);
+              this.dataService.setErrorName(errorResponse.error.error);
+              this.router.navigate(['error-page']);
             }
-
-            this.dataService.setFailedToConnect(false);
-
-            console.log(this.books);
-          },
-          error: (errorResponse) => {
-            console.error('Search error: ', errorResponse);
-            this.dataService.setFailedToConnect(true);
-            this.dataService.setErrorCode(errorResponse.status);
-            this.dataService.setErrorName(errorResponse.error.error);
-            this.router.navigate(['error-page']);
           },
         });
+      } else {
+        const storedSearch = sessionStorage.getItem('Last Search');
+
+        if (storedSearch) {
+          this.books = JSON.parse(storedSearch);
+        }
       }
     });
   }

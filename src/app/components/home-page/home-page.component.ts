@@ -10,12 +10,10 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class HomePageComponent implements OnInit, DoCheck {
   isLoggedIn: boolean = false;
-  email: string = '';
 
-  user = {
-    firstName: '',
-    lastName: '',
-  };
+  email: string = '';
+  firstName: string = '';
+  lastName: string = '';
 
   constructor(
     private userService: UserService,
@@ -24,31 +22,39 @@ export class HomePageComponent implements OnInit, DoCheck {
   ) {}
 
   ngDoCheck(): void {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('Token');
     this.isLoggedIn = token ? true : false;
   }
 
   ngOnInit(): void {
-    const userNamesFound = sessionStorage.getItem('userNames');
+    const firstNameFound = sessionStorage.getItem('First Name');
+    const lastNameFound = sessionStorage.getItem('Last Name');
 
-    if (userNamesFound) {
-      this.user = JSON.parse(userNamesFound);
+    if (firstNameFound && lastNameFound) {
+      this.firstName = sessionStorage.getItem('First Name') as string;
+      this.lastName = sessionStorage.getItem('Last Name') as string;
     } else {
       this.findUserNames();
     }
   }
 
   findUserNames() {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('Token');
 
     if (token) {
-      this.email = localStorage.getItem('email') as string;
+      this.email = sessionStorage.getItem('Email') as string;
 
       this.userService.getUserName(this.email).subscribe({
         next: (response: any) => {
-          this.user = response;
-          sessionStorage.removeItem('userNames');
-          sessionStorage.setItem('userNames', JSON.stringify(response));
+          this.firstName = response.firstName;
+          this.lastName = response.lastName;
+
+          sessionStorage.removeItem('First Name');
+          sessionStorage.removeItem('Last Name');
+
+          sessionStorage.setItem('First Name', response.firstName);
+          sessionStorage.setItem('Last Name', response.lastName);
+
           this.dataService.setFailedToConnect(false);
         },
         error: (errorResponse) => {

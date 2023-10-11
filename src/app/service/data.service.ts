@@ -13,6 +13,7 @@ export class DataService {
   private errorCode = new BehaviorSubject<number>(0);
   private book = new BehaviorSubject<Book | undefined>(undefined);
   private bookId = new BehaviorSubject<number>(0);
+  private updateBook = new BehaviorSubject<boolean>(false);
 
   setSearchInput(input: string) {
     this.searchInput.next(input);
@@ -68,5 +69,13 @@ export class DataService {
 
   getBookId() {
     return this.bookId.asObservable();
+  }
+
+  setUpdateBook(boolean: boolean) {
+    this.updateBook.next(boolean);
+  }
+
+  getUpdateBook() {
+    return this.updateBook.asObservable();
   }
 }

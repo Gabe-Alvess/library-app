@@ -12,12 +12,15 @@ export class NavbarComponent implements DoCheck {
   constructor() {}
 
   ngDoCheck(): void {
-    this.isUser = localStorage.getItem('role') === 'USER' ? true : false;
-    this.isAdmin = localStorage.getItem('role') === 'ADMIN' ? true : false;
+    this.isUser = sessionStorage.getItem('Role') === 'USER' ? true : false;
+    this.isAdmin = sessionStorage.getItem('Role') === 'ADMIN' ? true : false;
   }
 
   logout(): void {
-    localStorage.clear();
-    sessionStorage.removeItem('userNames');
+    sessionStorage.removeItem("Token");
+    sessionStorage.removeItem("Email");
+    sessionStorage.removeItem("Role");
+    sessionStorage.removeItem('First Name');
+    sessionStorage.removeItem('Last Name');
   }
 }
