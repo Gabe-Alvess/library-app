@@ -23,6 +23,7 @@ export class AddBookComponent {
     description: '',
     genres: '',
     releaseDate: '',
+    available: false,
   };
 
   constructor(

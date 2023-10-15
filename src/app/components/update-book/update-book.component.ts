@@ -22,6 +22,7 @@ export class UpdateBookComponent {
     description: '',
     genres: '',
     releaseDate: '',
+    available: false,
   };
 
   constructor(

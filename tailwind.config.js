@@ -15,7 +15,7 @@ module.exports = {
         oswald: ["Oswald", "sans-serif"],
       },
       backgroundImage: {
-        "library-img": "url('/../assets/images/library-bg.jpg')",
+        "library-img": "url('/../assets/images/library-bg-2.jpg')",
       },
     },
   },

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +12,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { SearchPageComponent } from './components/search-page/search-page.component';
 import { BookPageComponent } from './components/book-page/book-page.component';
-import { ErrorComponent } from './components/error/error.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { SignupPageComponent } from './components/signup-page/signup-page.component';
 import { AddBookComponent } from './components/add-book/add-book.component';
@@ -19,6 +20,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { BookDbComponent } from './components/book-db/book-db.component';
 import { UserBooksComponent } from './components/user-books/user-books.component';
 import { UpdateBookComponent } from './components/update-book/update-book.component';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,7 @@ import { UpdateBookComponent } from './components/update-book/update-book.compon
     LoginPageComponent,
     SignupPageComponent,
     FooterComponent,
-    ErrorComponent,
+    ErrorPageComponent,
     SearchPageComponent,
     SearchBarComponent,
     CarouselComponent,
@@ -40,10 +42,12 @@ import { UpdateBookComponent } from './components/update-book/update-book.compon
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     CarouselModule.forRoot(),
+    ToastModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

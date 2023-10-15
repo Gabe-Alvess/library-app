@@ -1,3 +1,5 @@
+@import "primeng/resources/primeng.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
 @import url("https://fonts.googleapis.com/css2?family=Mooli&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap");
 
@@ -7,4 +9,8 @@
 
 body {
   @apply bg-library-img bg-cover bg-repeat-y h-screen scrollbar-none;
+}
+
+.page {
+  @apply bg-black bg-opacity-30 pt-[104px];
 }

@@ -1,25 +1,27 @@
-<div class="w-screen flex flex-col items-center p-5">
-  <div
-    *ngFor="let book of books"
-    (click)="updateBook(book)"
-    routerLink="/book-page"
-    class="w-[50vw] h-[50vh] flex items-center justify-evenly mb-4 bg-p-sBlue rounded-xl cursor-pointer transition duration-300 ease-in-out hover:scale-105"
-  >
-    <img
-      class="w-[300px] h-[400px] object-contain"
-      [src]="book.imgURL"
-      [alt]="book.title"
-    />
-
-    <div class="h-[400px] flex flex-col justify-evenly text-p-beige font-oswald">
-      <h1 class="text-4xl max-w-xl">{{ book.title }}</h1>
-      <h2 class="text-2xl">By {{ book.author }}</h2>
-      <p
-        class="text-xl max-w-xl max-h-52 overflow-y-scroll scrollbar-none"
-      >
-        {{ book.description }}
-      </p>
-      <p class="text-lg max-w-md"><strong>Genres:</strong> {{ book.genres }}</p>
+<section class="page">
+  <div class="flex flex-col items-center p-5">
+    <div
+      *ngFor="let book of books"
+      (click)="updateBook(book)"
+      routerLink="/book-page"
+      class="w-[50vw] h-[50vh] flex items-center justify-evenly mb-4 bg-p-sBlue rounded-xl cursor-pointer transition duration-300 ease-in-out hover:scale-105"
+    >
+      <img
+        class="w-[300px] h-[400px] object-contain"
+        [src]="book.imgURL"
+        [alt]="book.title"
+      />
+  
+      <div class="h-[400px] flex flex-col justify-evenly text-p-beige font-oswald">
+        <h1 class="text-4xl max-w-xl">{{ book.title }}</h1>
+        <h2 class="text-2xl">By {{ book.author }}</h2>
+        <p
+          class="text-xl max-w-xl max-h-52 overflow-y-scroll scrollbar-none"
+        >
+          {{ book.description }}
+        </p>
+        <p class="text-lg max-w-md"><strong>Genres:</strong> {{ book.genres }}</p>
+      </div>
     </div>
   </div>
-</div>
+</section>

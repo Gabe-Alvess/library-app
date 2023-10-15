@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 
 @Component({
-  selector: 'app-error',
-  templateUrl: './error.component.html',
-  styleUrls: ['./error.component.css'],
+  selector: 'app-error-page',
+  templateUrl: './error-page.component.html',
+  styleUrls: ['./error-page.component.css'],
 })
-export class ErrorComponent implements OnInit {
+export class ErrorPageComponent implements OnInit {
   notFound: boolean = false;
   failedToConnect: boolean = false;
   errorCode: number = -1;

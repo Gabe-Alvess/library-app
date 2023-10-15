@@ -1,15 +1,13 @@
-<section class="h-[88vh] flex justify-center items-center">
+<section class="page h-screen flex justify-center items-center">
   <div
-    class="w-[95vw] h-[80vh] bg-p-sBlue p-4 rounded-lg overflow-y-scroll scrollbar-none"
+    class="w-[95vw] h-[75vh] bg-p-sBlue p-4 rounded-lg overflow-y-scroll scrollbar-none"
   >
     <table class="w-full text-p-beige text-2xl font-oswald text-center">
       <thead>
         <tr>
           <th>Image</th>
-          <th>Description</th>
           <th>Title</th>
-          <th>Author</th>
-          <th>Genres</th>
+          <th>Borrow Date</th>
           <th>Due Date</th>
           <th>Renew Book</th>
           <th>Return Book</th>
@@ -24,17 +22,8 @@
               class="w-[200px] h-[250px] object-contain ml-auto mr-auto"
             />
           </td>
-          <td>
-            The Desperate Battle Begins! For the past century, what's left of
-            mankind has hidden in a giant, three-walled city, trapped in fear of
-            the bizarre, giant humanoids known as the Titans. Little is known
-            about where they came from or why they are bent on consuming
-            humankind, but the sudden appearance of an enormous Titan is about
-            to change everything...
-          </td>
           <td>Attack on Titan, Vol. 1</td>
-          <td>Hajime Isayama</td>
-          <td>Manga, Fantasy, Graphic Novels, Horror, Comics</td>
+          <td>10/10/2023</td>
           <td>10/10/2023</td>
           <td>
             <button (click)="renewBook()" class="renew-btn">Renew</button>

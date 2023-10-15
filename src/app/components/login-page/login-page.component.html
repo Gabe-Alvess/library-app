@@ -1,6 +1,8 @@
 <section
-  class="relative h-[88vh] flex items-center justify-center text-p-beige p-10"
+  class="page h-screen flex flex-col justify-center items-center text-p-beige"
 >
+  <p-toast position="bottom-center"></p-toast>
+
   <form (ngSubmit)="onSubmit()">
     <div
       class="flex flex-col justify-evenly items-center text-xl w-[22vw] h-[60vh] bg-p-sBlue p-10 rounded-lg font-oswald"
@@ -26,11 +28,4 @@
       <button type="submit" class="btn">Login</button>
     </div>
   </form>
-
-  <div
-    *ngIf="incorrectLogin"
-    class="absolute top-5 right-5 p-3 rounded-lg bg-red-200 bg-opacity-90 text-red-600 text-2xl font-mooli font-bold"
-  >
-    <p>{{ message }}</p>
-  </div>
 </section>

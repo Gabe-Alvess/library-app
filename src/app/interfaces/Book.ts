@@ -6,4 +6,5 @@ export interface Book {
   genres: string;
   description: string;
   releaseDate: string;
+  available: boolean;
 }

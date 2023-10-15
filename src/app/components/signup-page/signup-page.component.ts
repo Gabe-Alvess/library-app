@@ -3,11 +3,13 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/User';
 import { AuthService } from 'src/app/service/auth.service';
 import { DataService } from 'src/app/service/data.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'signup-page',
   templateUrl: './signup-page.component.html',
   styleUrls: ['./signup-page.component.css'],
+  providers: [MessageService],
 })
 export class SignupPageComponent {
   user: User = {
@@ -20,6 +22,7 @@ export class SignupPageComponent {
   success: boolean = false;
 
   constructor(
+    private messageService: MessageService,
     private authService: AuthService,
     private dataService: DataService,
     private router: Router
@@ -28,11 +31,12 @@ export class SignupPageComponent {
   onSubmit() {
     this.authService.signup(this.user).subscribe({
       next: () => {
-        this.success = true;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Account successfully registered!',
+        });
         this.dataService.setFailedToConnect(false);
-        setTimeout(() => {
-          this.success = false;
-        }, 5000);
       },
       error: (errorResponse) => {
         console.error('Signup error: ', errorResponse);

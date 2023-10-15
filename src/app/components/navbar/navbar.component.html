@@ -1,6 +1,6 @@
 <nav
   *ngIf="!isUser && !isAdmin"
-  class="bg-p-sBlue w-screen flex justify-evenly items-center uppercase"
+  class="fixed z-10 bg-p-sBlue w-screen flex justify-evenly items-center uppercase"
 >
   >
   <div>
@@ -31,7 +31,7 @@
 
 <nav
   *ngIf="isUser"
-  class="bg-p-sBlue w-screen flex justify-evenly items-center uppercase"
+  class="fixed z-10 bg-p-sBlue w-screen flex justify-evenly items-center uppercase"
 >
   <div>
     <p class="text-5xl text-teal-300 font-mooli">Library | App</p>
@@ -61,7 +61,7 @@
 
 <nav
   *ngIf="isAdmin"
-  class="bg-p-sBlue w-screen flex justify-evenly items-center uppercase"
+  class="fixed z-10 bg-p-sBlue w-screen flex justify-evenly items-center uppercase"
 >
   <div>
     <p class="text-5xl text-teal-300 font-mooli">Library | App</p>

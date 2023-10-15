@@ -1,4 +1,9 @@
-<div *ngIf="book" class="h-[89vh] flex justify-center items-center">
+<section
+  *ngIf="book"
+  class="page h-screen flex flex-col justify-around items-center"
+>
+  <p-toast position="bottom-right"></p-toast>
+
   <div
     class="w-[80vw] h-[75vh] flex justify-evenly items-center bg-p-sBlue rounded-lg"
   >
@@ -22,11 +27,19 @@
       <p class="text-lg">Release Date: {{ book.releaseDate }}</p>
 
       <button
+        *ngIf="book.available"
         (click)="borrowBook()"
-        class="p-2 text-xl rounded-lg bg-green-600 transition duration-300 hover:scale-105 hover:bg-green-500"
+        class="p-2 text-xl font-oswald rounded-lg bg-green-600 transition duration-300 hover:scale-105 hover:bg-green-500"
       >
         Borrow This Book
       </button>
+      <button
+        *ngIf="!book.available"
+        (click)="bookNotAvailable()"
+        class="p-2 text-xl font-oswald rounded-lg bg-gray-600 text-zinc-400"
+      >
+        Book Not Available
+      </button>
     </div>
   </div>
-</div>
+</section>
