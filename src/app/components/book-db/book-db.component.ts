@@ -4,20 +4,22 @@ import { Book } from 'src/app/interfaces/Book';
 import { AdminService } from 'src/app/service/admin.service';
 import { BookService } from 'src/app/service/book.service';
 import { DataService } from 'src/app/service/data.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-book-db',
   templateUrl: './book-db.component.html',
   styleUrls: ['./book-db.component.css'],
+  providers: [MessageService],
 })
 export class BookDbComponent implements OnInit, DoCheck {
   books: Book[] = [];
+  deleted = false;
+  updateTable = false;
   noBooksFound = false;
-  success: boolean = false;
-  message: string = '';
-  updateTable: boolean = false;
 
   constructor(
+    private messageService: MessageService,
     private adminService: AdminService,
     private bookService: BookService,
     private dataService: DataService,
@@ -26,7 +28,7 @@ export class BookDbComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.getAllBooks();
-    this.successfullyUpdated();
+    this.showMessage();
   }
 
   ngDoCheck(): void {
@@ -63,20 +65,10 @@ export class BookDbComponent implements OnInit, DoCheck {
     this.router.navigate(['update-book']);
   }
 
-  successfullyUpdated() {
-    this.dataService.getUpdateBook().subscribe((boolean) => {
-      if (boolean) {
-        this.message = 'Book successfully updated!';
-        this.showMessage();
-      }
-    });
-    this.dataService.setUpdateBook(false);
-  }
-
   deleteBook(id: number) {
     this.adminService.deleteBook(id).subscribe({
       next: () => {
-        this.message = 'Book successfully deleted!';
+        this.deleted = true;
         this.showMessage();
 
         this.updateTable = true;
@@ -94,9 +86,24 @@ export class BookDbComponent implements OnInit, DoCheck {
   }
 
   showMessage() {
-    this.success = true;
-    setTimeout(() => {
-      this.success = false;
-    }, 5000);
+    this.dataService.getUpdateBook().subscribe((success) => {
+      if (success) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Book successfully updated!',
+        });
+      }
+      this.dataService.setUpdateBook(false);
+    });
+
+    if (this.deleted) {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Book successfully deleted!',
+      });
+      this.deleted = false;
+    }
   }
 }

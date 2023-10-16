@@ -10,10 +10,6 @@ import { DataService } from 'src/app/service/data.service';
   styleUrls: ['./update-book.component.css'],
 })
 export class UpdateBookComponent {
-  failed: boolean = false;
-  errorCode: string = '';
-  errorName: string = '';
-
   book: Book = {
     id: 0,
     imgURL: '',
@@ -35,12 +31,12 @@ export class UpdateBookComponent {
     this.dataService.getBookId().subscribe((id) => {
       this.adminService.updateBook(id, this.book).subscribe({
         next: () => {
-          this.router.navigate(['book-db']);
-          this.dataService.setUpdateBook(true);
           this.dataService.setFailedToConnect(false);
+          this.dataService.setUpdateBook(true);
+          this.router.navigate(['book-db']);
         },
         error: (errorResponse) => {
-          console.error('Get error: ', errorResponse);
+          console.error('Update error: ', errorResponse);
           this.dataService.setFailedToConnect(true);
           this.dataService.setUpdateBook(false);
           this.dataService.setErrorCode(errorResponse.status);

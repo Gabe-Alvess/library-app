@@ -1,4 +1,6 @@
-<section class="page relative h-screen flex justify-center items-center">
+<section class="page h-screen flex justify-center items-center">
+  <p-toast></p-toast>
+
   <div
     class="w-[95vw] h-[75vh] bg-p-sBlue p-4 rounded-lg overflow-y-scroll scrollbar-none"
   >
@@ -59,12 +61,5 @@
         </tr>
       </tbody>
     </table>
-  </div>
-
-  <div
-    *ngIf="success"
-    class="absolute top-2 right-5 p-3 rounded-lg bg-green-200 bg-opacity-90 text-green-600 text-2xl font-mooli font-bold"
-  >
-    <p>{{ message }}</p>
   </div>
 </section>
