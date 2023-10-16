@@ -61,7 +61,6 @@ export class HomePageComponent implements OnInit, DoCheck {
           console.log('home error', errorResponse);
           this.dataService.setFailedToConnect(true);
           this.dataService.setErrorCode(errorResponse.status);
-          this.dataService.setErrorName(errorResponse.name);
           this.router.navigate(['error-page']);
         },
       });

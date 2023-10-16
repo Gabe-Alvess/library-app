@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BorrowedBook } from '../interfaces/BorrowedBook';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +32,7 @@ export class UserService {
   getBorrowedBooks(email: string) {
     this.initializeHeaders();
 
-    return this.http.get(
+    return this.http.get<BorrowedBook[]>(
       `${this.apiUrl}/borrowed/getAll?email=${email}`,
       this.headers
     );
@@ -42,6 +43,26 @@ export class UserService {
 
     return this.http.post(
       `${this.apiUrl}/borrow?email=${email}&bookId=${bookId}`,
+      null,
+      this.headers
+    );
+  }
+
+  renewDueDate(email: string, bookId: number) {
+    this.initializeHeaders();
+
+    return this.http.post(
+      `${this.apiUrl}/renew?email=${email}&bbId=${bookId}`,
+      null,
+      this.headers
+    );
+  }
+
+  returnBook(email: string, bookId: number) {
+    this.initializeHeaders();
+
+    return this.http.post(
+      `${this.apiUrl}/return?email=${email}&bbId=${bookId}`,
       null,
       this.headers
     );

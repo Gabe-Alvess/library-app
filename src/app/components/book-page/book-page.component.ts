@@ -61,7 +61,6 @@ export class BookPageComponent implements OnInit {
           console.log('borrowBook Error: ', errorResponse);
           this.dataService.setFailedToConnect(true);
           this.dataService.setErrorCode(errorResponse.status);
-          this.dataService.setErrorName(errorResponse.error.error);
           this.router.navigate(['error-page']);
         },
       });
@@ -82,7 +81,6 @@ export class BookPageComponent implements OnInit {
         console.log('updatePage error: ', errorResponse);
         this.dataService.setFailedToConnect(true);
         this.dataService.setErrorCode(errorResponse.status);
-        this.dataService.setErrorName(errorResponse.error.error);
         this.router.navigate(['error-page']);
       },
     });

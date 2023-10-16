@@ -11,6 +11,7 @@ import { DataService } from 'src/app/service/data.service';
 })
 export class SearchPageComponent implements OnInit {
   books: Book[] = [];
+  notFound = false;
 
   constructor(
     private bookService: BookService,
@@ -26,8 +27,6 @@ export class SearchPageComponent implements OnInit {
     this.search();
   }
 
-  // TODO: Bring the book not not found message back to the search page!!!
-
   search() {
     this.dataService.getSearchInput().subscribe((search) => {
       if (search.trim().length > 0) {
@@ -35,7 +34,7 @@ export class SearchPageComponent implements OnInit {
           next: (response: Book[]) => {
             this.books = response;
 
-            this.dataService.setNotFound(false);
+            this.notFound = false;
             sessionStorage.removeItem('Last Search');
             sessionStorage.setItem('Last Search', JSON.stringify(response));
 
@@ -45,15 +44,13 @@ export class SearchPageComponent implements OnInit {
 
           error: (errorResponse) => {
             if (errorResponse.status === 404) {
-              this.dataService.setNotFound(true);
+              this.notFound = true;
               this.dataService.setSearchInput('');
-              this.router.navigate(['error-page']);
             } else {
               console.error('Search error: ', errorResponse);
               this.dataService.setSearchInput('');
               this.dataService.setFailedToConnect(true);
               this.dataService.setErrorCode(errorResponse.status);
-              this.dataService.setErrorName(errorResponse.error.error);
               this.router.navigate(['error-page']);
             }
           },

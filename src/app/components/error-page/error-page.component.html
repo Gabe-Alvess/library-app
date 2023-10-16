@@ -1,15 +1,9 @@
 <div class="page h-screen flex justify-center items-center">
-  <div *ngIf="notFound" class="notFoundError">
-    <img src="../../assets/icons/bx-error.svg" alt="error icon" />
-    <p>Book Not Found!</p>
-  </div>
-
   <div *ngIf="failedToConnect" class="errorMessage">
     <img src="../../assets/icons/bx-error.svg" alt="error icon" />
     <div class="h-full flex flex-col justify-evenly">
       <p>Something Went Wrong!</p>
       <p>Error Code: {{ errorCode }}</p>
-      <p>{{ errorName }}</p>
     </div>
   </div>
 </div>

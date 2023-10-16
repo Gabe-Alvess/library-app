@@ -1,1 +1,6 @@
-
+.searchPage {
+  @apply bg-black bg-opacity-30 pt-[130px];
+}
+.notFoundError {
+  @apply w-[17%] flex justify-evenly p-8 rounded-xl text-3xl text-center font-oswald bg-p-red text-amber-300;
+}

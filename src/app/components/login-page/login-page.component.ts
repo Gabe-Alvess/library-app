@@ -46,7 +46,6 @@ export class LoginPageComponent {
           console.log('login error: ', errorResponse);
           this.dataService.setFailedToConnect(true);
           this.dataService.setErrorCode(errorResponse.status);
-          this.dataService.setErrorName(errorResponse.error);
           this.router.navigate(['error-page']);
         }
       },

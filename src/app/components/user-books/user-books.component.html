@@ -1,8 +1,22 @@
 <section class="page h-screen flex justify-center items-center">
+  <p-toast position="bottom-right"></p-toast>
+
   <div
     class="w-[95vw] h-[75vh] bg-p-sBlue p-4 rounded-lg overflow-y-scroll scrollbar-none"
   >
-    <table class="w-full text-p-beige text-2xl font-oswald text-center">
+    <div
+      *ngIf="noBooksYet"
+      class="w-full h-full flex justify-center items-center"
+    >
+      <div class="text-3xl text-p-lBlue font-oswald">
+        <p>Nothing To See Here Yet! ㄟ( ▔, ▔ )ㄏ</p>
+      </div>
+    </div>
+
+    <table
+      *ngIf="!noBooksYet"
+      class="w-full text-p-beige text-2xl font-oswald text-center"
+    >
       <thead>
         <tr>
           <th>Image</th>
@@ -13,23 +27,27 @@
           <th>Return Book</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody *ngFor="let boBook of borrowedBooks">
         <tr>
           <td>
             <img
-              src="https://i.imgur.com/RDyW9C7.jpg"
-              alt="book image"
+              [src]="boBook.imgURL"
+              alt="book cover"
               class="w-[200px] h-[250px] object-contain ml-auto mr-auto"
             />
           </td>
-          <td>Attack on Titan, Vol. 1</td>
-          <td>10/10/2023</td>
-          <td>10/10/2023</td>
+          <td>{{ boBook.title }}</td>
+          <td>{{ boBook.borrowDate }}</td>
+          <td>{{ boBook.dueDate }}</td>
           <td>
-            <button (click)="renewBook()" class="renew-btn">Renew</button>
+            <button (click)="renewDueDate(boBook.bbId)" class="renew-btn">
+              Renew
+            </button>
           </td>
           <td>
-            <button (click)="returnBook()" class="return-btn">Return</button>
+            <button (click)="returnBook(boBook.bbId)" class="return-btn">
+              Return
+            </button>
           </td>
         </tr>
       </tbody>

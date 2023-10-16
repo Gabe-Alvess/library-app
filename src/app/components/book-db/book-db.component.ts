@@ -28,7 +28,6 @@ export class BookDbComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.getAllBooks();
-    this.showMessage();
   }
 
   ngDoCheck(): void {
@@ -51,10 +50,9 @@ export class BookDbComponent implements OnInit, DoCheck {
         this.dataService.setFailedToConnect(false);
       },
       error: (responseError) => {
-        console.error('Get error: ', responseError);
+        console.error('Get db books error: ', responseError);
         this.dataService.setFailedToConnect(true);
         this.dataService.setErrorCode = responseError.status;
-        this.dataService.setErrorName = responseError.error.error;
         this.router.navigate(['error-page']);
       },
     });
@@ -79,24 +77,12 @@ export class BookDbComponent implements OnInit, DoCheck {
         console.error('Delete error', errorResponse);
         this.dataService.setFailedToConnect(true);
         this.dataService.setErrorCode(errorResponse.status);
-        this.dataService.setErrorName(errorResponse.error.error);
         this.router.navigate(['error-page']);
       },
     });
   }
 
   showMessage() {
-    this.dataService.getUpdateBook().subscribe((success) => {
-      if (success) {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Book successfully updated!',
-        });
-      }
-      this.dataService.setUpdateBook(false);
-    });
-
     if (this.deleted) {
       this.messageService.add({
         severity: 'success',

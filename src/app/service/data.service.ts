@@ -8,12 +8,9 @@ import { Book } from '../interfaces/Book';
 export class DataService {
   private searchInput = new BehaviorSubject<string>('');
   private failedToConnect = new BehaviorSubject<boolean>(false);
-  private notFound = new BehaviorSubject<boolean>(false);
-  private errorName = new BehaviorSubject<string>('');
   private errorCode = new BehaviorSubject<number>(0);
   private book = new BehaviorSubject<Book | undefined>(undefined);
   private bookId = new BehaviorSubject<number>(0);
-  private updateBook = new BehaviorSubject<boolean>(false);
 
   setSearchInput(input: string) {
     this.searchInput.next(input);
@@ -31,28 +28,12 @@ export class DataService {
     return this.failedToConnect.asObservable();
   }
 
-  setErrorName(name: string) {
-    this.errorName.next(name);
-  }
-
-  getErrorName() {
-    return this.errorName.asObservable();
-  }
-
   setErrorCode(code: number) {
     this.errorCode.next(code);
   }
 
   getErrorCode() {
     return this.errorCode.asObservable();
-  }
-
-  setNotFound(notFound: boolean) {
-    this.notFound.next(notFound);
-  }
-
-  getNotFound() {
-    return this.notFound.asObservable();
   }
 
   setBook(book: Book) {
@@ -69,13 +50,5 @@ export class DataService {
 
   getBookId() {
     return this.bookId.asObservable();
-  }
-
-  setUpdateBook(boolean: boolean) {
-    this.updateBook.next(boolean);
-  }
-
-  getUpdateBook() {
-    return this.updateBook.asObservable();
   }
 }

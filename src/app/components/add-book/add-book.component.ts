@@ -42,7 +42,6 @@ export class AddBookComponent {
         console.error('Get error: ', responseError);
         this.dataService.setFailedToConnect(true);
         this.dataService.setErrorCode(responseError.status);
-        this.dataService.setErrorName(responseError.error.error);
         this.router.navigate(['error-page']);
       },
     });

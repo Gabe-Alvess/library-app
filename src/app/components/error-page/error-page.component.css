@@ -1,7 +1,3 @@
-.notFoundError {
-  @apply w-[24%] flex justify-evenly p-8 rounded-xl text-3xl text-center font-oswald bg-p-red text-amber-300;
-}
-
 .errorMessage {
   @apply w-[26%] h-[20%] flex justify-evenly items-center p-3 rounded-xl text-3xl text-center font-oswald bg-p-red text-amber-300;
 }

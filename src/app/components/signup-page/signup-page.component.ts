@@ -43,7 +43,6 @@ export class SignupPageComponent {
         this.success = false;
         this.dataService.setFailedToConnect(true);
         this.dataService.setErrorCode(errorResponse.status);
-        this.dataService.setErrorName(errorResponse.error);
         this.router.navigate(['error-page']);
       },
     });
