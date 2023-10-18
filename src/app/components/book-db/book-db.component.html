@@ -1,8 +1,8 @@
-<section id="book-db" class="page h-screen flex justify-center items-center">
+<section class="page h-screen flex justify-center items-center">
   <p-toast position="bottom-right"></p-toast>
 
   <div
-    class="w-[95vw] h-[75vh] bg-p-sBlue p-4 rounded-lg overflow-y-scroll scrollbar-none"
+    class="w-[95vw] h-[75vh] bg-p-sBlue p-4 overflow-y-scroll scrollbar-none"
   >
     <div
       *ngIf="noBooksFound"
@@ -62,8 +62,8 @@
       </tbody>
     </table>
   </div>
-</section>
 
-<div *ngIf="update">
-  <app-update-book></app-update-book>
-</div>
+  <div *ngIf="updatePage">
+    <app-update-book></app-update-book>
+  </div>
+</section>

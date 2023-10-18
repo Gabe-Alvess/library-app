@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Book } from 'src/app/interfaces/Book';
 import { AdminService } from 'src/app/service/admin.service';
@@ -15,9 +15,9 @@ import { MessageService } from 'primeng/api';
 export class BookDbComponent implements OnInit {
   books: Book[] = [];
   deleted = false;
-  updateTable = false;
+  updated = false;
+  updatePage = false;
   noBooksFound = false;
-  update = true;
 
   constructor(
     private messageService: MessageService,
@@ -52,9 +52,8 @@ export class BookDbComponent implements OnInit {
   }
 
   updateBook(id: number) {
-    const targetElement = document.querySelector('#update');
+    this.updatePage = true;
     this.dataService.setBookId(id);
-    targetElement?.scrollIntoView({ behavior: 'smooth' });
   }
 
   deleteBook(id: number) {
@@ -81,10 +80,25 @@ export class BookDbComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: 'Success',
-        detail: 'Book successfully deleted!',
+        detail: 'Book Successfully Deleted!',
       });
 
       this.deleted = false;
+    }
+
+    if (this.updated) {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Book Successfully Updated!',
+      });
+
+      setTimeout(() => {
+        location.reload();
+      }, 3400);
+
+      this.updated = false;
+      this.updatePage = false;
     }
   }
 }
