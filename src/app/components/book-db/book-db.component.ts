@@ -12,11 +12,12 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./book-db.component.css'],
   providers: [MessageService],
 })
-export class BookDbComponent implements OnInit, DoCheck {
+export class BookDbComponent implements OnInit {
   books: Book[] = [];
   deleted = false;
   updateTable = false;
   noBooksFound = false;
+  update = true;
 
   constructor(
     private messageService: MessageService,
@@ -28,14 +29,6 @@ export class BookDbComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.getAllBooks();
-  }
-
-  ngDoCheck(): void {
-    if (this.updateTable) {
-      this.getAllBooks();
-    }
-
-    this.updateTable = false;
   }
 
   getAllBooks() {
@@ -59,8 +52,9 @@ export class BookDbComponent implements OnInit, DoCheck {
   }
 
   updateBook(id: number) {
+    const targetElement = document.querySelector('#update');
     this.dataService.setBookId(id);
-    this.router.navigate(['update-book']);
+    targetElement?.scrollIntoView({ behavior: 'smooth' });
   }
 
   deleteBook(id: number) {
@@ -69,7 +63,7 @@ export class BookDbComponent implements OnInit, DoCheck {
         this.deleted = true;
         this.showMessage();
 
-        this.updateTable = true;
+        this.getAllBooks();
 
         this.dataService.setFailedToConnect(false);
       },
@@ -89,6 +83,7 @@ export class BookDbComponent implements OnInit, DoCheck {
         summary: 'Success',
         detail: 'Book successfully deleted!',
       });
+
       this.deleted = false;
     }
   }

@@ -1,4 +1,4 @@
-<section class="page h-screen flex justify-center items-center">
+<section id="book-db" class="page h-screen flex justify-center items-center">
   <p-toast position="bottom-right"></p-toast>
 
   <div
@@ -63,3 +63,7 @@
     </table>
   </div>
 </section>
+
+<div *ngIf="update">
+  <app-update-book></app-update-book>
+</div>

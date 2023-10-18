@@ -39,6 +39,7 @@ export class AdminService {
 
   updateBook(id: number, book: Book) {
     this.initializeHeaders();
+
     return this.http.patch(
       `${this.apiUrl}/adm/update?id=${id}`,
       book,
@@ -48,6 +49,7 @@ export class AdminService {
 
   deleteBook(id: number) {
     this.initializeHeaders();
+
     return this.http.delete(`${this.apiUrl}/adm/delete?id=${id}`, this.headers);
   }
 }

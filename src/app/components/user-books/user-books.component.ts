@@ -16,6 +16,7 @@ export class UserBooksComponent implements OnInit, DoCheck {
 
   noBooksYet = false;
   bookRenewed = false;
+  alreadyRenewed = false;
   bookReturned = false;
   updateTable = false;
 
@@ -68,39 +69,54 @@ export class UserBooksComponent implements OnInit, DoCheck {
       this.messageService.add({
         severity: 'success',
         summary: 'Success',
-        detail: 'Due Date successfully renewed!',
+        detail: 'Due Date Successfully Renewed!',
       });
       this.bookRenewed = false;
+    }
+
+    if (this.alreadyRenewed) {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Info',
+        detail: 'Due Date Already Renewed!',
+      });
     }
 
     if (this.bookReturned) {
       this.messageService.add({
         severity: 'success',
         summary: 'Success',
-        detail: 'Book successfully returned!',
+        detail: 'Book Successfully Returned!',
       });
       this.bookReturned = false;
     }
   }
 
-  renewDueDate(bookId: number) {
-    const email = sessionStorage.getItem('Email');
+  renewDueDate(bookId: number, renewed: boolean) {
+    if (!renewed) {
+      const email = sessionStorage.getItem('Email');
 
-    if (email) {
-      this.userService.renewDueDate(email, bookId).subscribe({
-        next: () => {
-          this.bookRenewed = true;
-          this.updateTable = true;
-          this.showMessage();
-          this.dataService.setFailedToConnect(false);
-        },
-        error: (errorResponse) => {
-          console.error('Renew error', errorResponse);
-          this.dataService.setFailedToConnect(true);
-          this.dataService.setErrorCode(errorResponse.status);
-          this.router.navigate(['error-page']);
-        },
-      });
+      if (email) {
+        this.userService.renewDueDate(email, bookId).subscribe({
+          next: () => {
+            this.bookRenewed = true;
+            this.updateTable = true;
+            this.showMessage();
+            this.dataService.setFailedToConnect(false);
+          },
+          error: (errorResponse) => {
+            console.error('Renew error', errorResponse);
+            this.dataService.setFailedToConnect(true);
+            this.dataService.setErrorCode(errorResponse.status);
+            this.router.navigate(['error-page']);
+          },
+        });
+      } else {
+        return;
+      }
+    } else {
+      this.alreadyRenewed = true;
+      this.showMessage();
     }
   }
 

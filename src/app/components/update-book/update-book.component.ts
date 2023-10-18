@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Book } from 'src/app/interfaces/Book';
 import { AdminService } from 'src/app/service/admin.service';
 import { DataService } from 'src/app/service/data.service';
 import { MessageService } from 'primeng/api';
+import { BookDbComponent } from '../book-db/book-db.component';
 
 @Component({
   selector: 'app-update-book',
@@ -11,7 +12,7 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./update-book.component.css'],
   providers: [MessageService],
 })
-export class UpdateBookComponent {
+export class UpdateBookComponent implements OnInit {
   book: Book = {
     id: 0,
     imgURL: '',
@@ -24,13 +25,17 @@ export class UpdateBookComponent {
   };
 
   success = false;
+  updated = false;
 
   constructor(
     private messageService: MessageService,
     private adminService: AdminService,
     private dataService: DataService,
-    private router: Router
+    private router: Router,
+    private bookDb: BookDbComponent
   ) {}
+
+  ngOnInit(): void {}
 
   submit() {
     this.dataService.getBookId().subscribe((id) => {
@@ -49,22 +54,28 @@ export class UpdateBookComponent {
       });
     });
 
-    this.book = {} as Book;
+    this.book = {
+      id: 0,
+      imgURL: '',
+      title: '',
+      author: '',
+      description: '',
+      genres: '',
+      releaseDate: '',
+      available: false,
+    };
   }
 
   showMessage() {
     if (this.success) {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Book successfully updated!',
-      });
-
-      this.success = false;
+      const targetElement = document.querySelector('#book-db');
+      targetElement?.scrollIntoView({ behavior: 'smooth' });
 
       setTimeout(() => {
-        this.router.navigate(['book-db']);
-      }, 3500);
+        this.bookDb.getAllBooks();
+        
+      }, 600);
     }
+    this.success = false;
   }
 }

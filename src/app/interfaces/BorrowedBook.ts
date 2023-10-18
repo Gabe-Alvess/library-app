@@ -4,4 +4,5 @@ export interface BorrowedBook {
   title: string;
   borrowDate: string;
   dueDate: string;
+  renewed: boolean;
 }

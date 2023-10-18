@@ -40,7 +40,7 @@
           <td>{{ boBook.borrowDate }}</td>
           <td>{{ boBook.dueDate }}</td>
           <td>
-            <button (click)="renewDueDate(boBook.bbId)" class="renew-btn">
+            <button (click)="renewDueDate(boBook.bbId, boBook.renewed)" class="renew-btn">
               Renew
             </button>
           </td>
