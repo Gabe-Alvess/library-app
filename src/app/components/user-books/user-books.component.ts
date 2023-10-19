@@ -36,9 +36,7 @@ export class UserBooksComponent implements OnInit {
     if (email) {
       this.userService.getBorrowedBooks(email).subscribe({
         next: (response: BorrowedBook[]) => {
-          console.log('response: ', response);
           this.borrowedBooks = response;
-          console.log('bBooks: ', this.borrowedBooks);
           this.dataService.setFailedToConnect(false);
         },
         error: (responseError) => {
@@ -71,6 +69,7 @@ export class UserBooksComponent implements OnInit {
         summary: 'Info',
         detail: 'Due Date Already Renewed!',
       });
+      this.alreadyRenewed = false;
     }
 
     if (this.bookReturned) {
