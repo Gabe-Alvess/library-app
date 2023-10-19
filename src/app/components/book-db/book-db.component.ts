@@ -93,6 +93,8 @@ export class BookDbComponent implements OnInit {
         detail: 'Book Successfully Updated!',
       });
 
+      this.getAllBooks();
+
       setTimeout(() => {
         location.reload();
       }, 3400);

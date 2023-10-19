@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
 import { UserService } from 'src/app/service/user.service';
@@ -11,14 +11,13 @@ import { BorrowedBook } from 'src/app/interfaces/BorrowedBook';
   styleUrls: ['./user-books.component.css'],
   providers: [MessageService],
 })
-export class UserBooksComponent implements OnInit, DoCheck {
+export class UserBooksComponent implements OnInit {
   borrowedBooks: BorrowedBook[] = [];
 
   noBooksYet = false;
   bookRenewed = false;
   alreadyRenewed = false;
   bookReturned = false;
-  updateTable = false;
 
   constructor(
     private messageService: MessageService,
@@ -29,14 +28,6 @@ export class UserBooksComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.getBorrowedBooks();
-  }
-
-  ngDoCheck(): void {
-    if (this.updateTable) {
-      this.getBorrowedBooks();
-    }
-
-    this.updateTable = false;
   }
 
   getBorrowedBooks() {
@@ -100,7 +91,7 @@ export class UserBooksComponent implements OnInit, DoCheck {
         this.userService.renewDueDate(email, bookId).subscribe({
           next: () => {
             this.bookRenewed = true;
-            this.updateTable = true;
+            this.getBorrowedBooks();
             this.showMessage();
             this.dataService.setFailedToConnect(false);
           },
@@ -127,7 +118,7 @@ export class UserBooksComponent implements OnInit, DoCheck {
       this.userService.returnBook(email, bookId).subscribe({
         next: () => {
           this.bookReturned = true;
-          this.updateTable = true;
+          this.getBorrowedBooks();
           this.showMessage();
           this.dataService.setFailedToConnect(false);
         },
