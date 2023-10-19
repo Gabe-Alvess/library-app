@@ -25,6 +25,7 @@
           <th>Title</th>
           <th>Author</th>
           <th>Genres</th>
+          <th>Release Date</th>
           <th>Update Book</th>
           <th>Delete Book</th>
         </tr>
@@ -48,6 +49,9 @@
           <td>{{ book.title }}</td>
           <td>{{ book.author }}</td>
           <td>{{ book.genres }}</td>
+          <td>
+            {{ book.releaseDate }}
+          </td>
           <td>
             <button (click)="updateBook(book.id)" class="updt-btn">
               Update

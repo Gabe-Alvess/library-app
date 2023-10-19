@@ -10,7 +10,6 @@ import { MessageService } from 'primeng/api';
   selector: 'app-book-db',
   templateUrl: './book-db.component.html',
   styleUrls: ['./book-db.component.css'],
-  providers: [MessageService],
 })
 export class BookDbComponent implements OnInit {
   books: Book[] = [];

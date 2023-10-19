@@ -21,6 +21,9 @@ import { BookDbComponent } from './components/book-db/book-db.component';
 import { UserBooksComponent } from './components/user-books/user-books.component';
 import { UpdateBookComponent } from './components/update-book/update-book.component';
 import { ToastModule } from 'primeng/toast';
+import { DatePipe } from '@angular/common';
+import { MessageService } from 'primeng/api';
+import { RouteGuardService } from './service/route-guard.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,7 @@ import { ToastModule } from 'primeng/toast';
     CarouselModule.forRoot(),
     ToastModule,
   ],
-  providers: [],
+  providers: [MessageService, DatePipe, RouteGuardService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -8,7 +8,6 @@ import { DataService } from 'src/app/service/data.service';
   selector: 'login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css'],
-  providers: [MessageService],
 })
 export class LoginPageComponent {
   userInfo = {

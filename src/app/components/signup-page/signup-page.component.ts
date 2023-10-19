@@ -9,7 +9,6 @@ import { MessageService } from 'primeng/api';
   selector: 'signup-page',
   templateUrl: './signup-page.component.html',
   styleUrls: ['./signup-page.component.css'],
-  providers: [MessageService],
 })
 export class SignupPageComponent {
   user: User = {
@@ -18,8 +17,6 @@ export class SignupPageComponent {
     email: '',
     password: '',
   };
-
-  success: boolean = false;
 
   constructor(
     private messageService: MessageService,
@@ -34,16 +31,23 @@ export class SignupPageComponent {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: 'Account successfully registered!',
+          detail: 'Account Successfully Registered!',
         });
         this.dataService.setFailedToConnect(false);
       },
       error: (errorResponse) => {
-        console.error('Signup error: ', errorResponse);
-        this.success = false;
-        this.dataService.setFailedToConnect(true);
-        this.dataService.setErrorCode(errorResponse.status);
-        this.router.navigate(['error-page']);
+        if (errorResponse.status === 400) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Account Already Exists!',
+          });
+        } else {
+          console.error('Signup error: ', errorResponse);
+          this.dataService.setFailedToConnect(true);
+          this.dataService.setErrorCode(errorResponse.status);
+          this.router.navigate(['error-page']);
+        }
       },
     });
 

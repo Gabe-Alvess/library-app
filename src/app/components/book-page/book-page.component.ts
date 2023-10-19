@@ -10,7 +10,6 @@ import { MessageService } from 'primeng/api';
   selector: 'book-page',
   templateUrl: './book-page.component.html',
   styleUrls: ['./book-page.component.css'],
-  providers: [MessageService],
 })
 export class BookPageComponent implements OnInit {
   book: Book = {} as Book;
