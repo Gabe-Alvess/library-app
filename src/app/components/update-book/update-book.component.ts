@@ -4,6 +4,8 @@ import { Book } from 'src/app/interfaces/Book';
 import { AdminService } from 'src/app/service/admin.service';
 import { DataService } from 'src/app/service/data.service';
 import { BookDbComponent } from '../book-db/book-db.component';
+import { AuthService } from 'src/app/service/auth.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-update-book',
@@ -22,52 +24,53 @@ export class UpdateBookComponent implements OnInit {
     available: false,
   };
 
-  success = false;
-  updated = false;
-
   constructor(
     private adminService: AdminService,
+    private authService: AuthService,
     private dataService: DataService,
-    private router: Router,
-    private bookDb: BookDbComponent
+    private datePipe: DatePipe,
+    private router: Router
   ) {}
 
-  ngOnInit(): void {}
-
-  submit() {
-    this.dataService.getBookId().subscribe((id) => {
-      this.adminService.updateBook(id, this.book).subscribe({
-        next: () => {
-          this.success = true;
-          this.showMessage();
-          this.dataService.setFailedToConnect(false);
-        },
-        error: (errorResponse) => {
-          console.error('Update error: ', errorResponse);
-          this.dataService.setFailedToConnect(true);
-          this.dataService.setErrorCode(errorResponse.status);
-          this.router.navigate(['error-page']);
-        },
-      });
-    });
-
-    this.book = {
-      id: 0,
-      imgURL: '',
-      title: '',
-      author: '',
-      description: '',
-      genres: '',
-      releaseDate: '',
-      available: false,
-    };
+  ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      if (this.authService.isAllowed()) {
+        this.getBookToUpdate();
+      }
+    }
   }
 
-  showMessage() {
-    if (this.success) {
-      this.bookDb.updated = true;
-      this.bookDb.showMessage();
-    }
-    this.success = false;
+  getBookToUpdate() {
+    this.dataService.getBook().subscribe((bookToUpdate) => {
+      if (bookToUpdate !== undefined) {
+        this.book = bookToUpdate;
+      } else {
+        this.router.navigate(['']);
+      }
+    });
+  }
+
+  submit() {
+    this.adminService.updateBook(this.book.id, this.book).subscribe({
+      next: () => {
+        this.handleSuccessfulResponse();
+      },
+      error: (errorResponse) => {
+        console.error('Update error: ', errorResponse);
+        this.handleErrorResponse(errorResponse);
+      },
+    });
+  }
+
+  handleSuccessfulResponse() {
+    this.dataService.setUpdateSucceeded(true);
+    this.dataService.setFailedToConnect(false);
+    this.router.navigate(['book-db']);
+  }
+
+  handleErrorResponse(errorResponse: any) {
+    this.dataService.setFailedToConnect(true);
+    this.dataService.setErrorCode(errorResponse.status);
+    this.router.navigate(['error-page']);
   }
 }

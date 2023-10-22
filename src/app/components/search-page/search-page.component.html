@@ -1,7 +1,7 @@
 <section *ngIf="!notFound" class="searchPage flex flex-col items-center">
   <div
     *ngFor="let book of books"
-    (click)="updateBook(book)"
+    (click)="transferBookId(book.id)"
     routerLink="/book-page"
     class="w-[50vw] h-[50vh] flex items-center justify-evenly mb-4 bg-p-sBlue rounded-xl cursor-pointer transition duration-300 ease-in-out hover:scale-105"
   >
@@ -28,8 +28,54 @@
   *ngIf="notFound"
   class="page h-screen flex justify-center items-center"
 >
-  <div class="notFoundError">
-    <img src="../../assets/icons/bx-error.svg" alt="error icon" />
-    <p>Book Not Found!</p>
+  <div class="w-[50%]">
+    <p-messages severity="info">
+      <ng-template pTemplate>
+        <div class="flex items-center gap-2">
+          <img
+            class="w-8"
+            src="../../../assets/icons/bx-info-circle.svg"
+            alt="info icon"
+          />
+
+          <p><strong>Oops!</strong></p>
+          <p>
+            It looks like the book you're searching for isn't in our library.
+          </p>
+        </div>
+      </ng-template>
+    </p-messages>
+
+    <p-messages severity="info">
+      <ng-template pTemplate>
+        <div class="flex items-center gap-2">
+          <img
+            class="w-8"
+            src="../../../assets/icons/bx-info-circle.svg"
+            alt="info icon"
+          />
+
+          <p><strong>Info</strong></p>
+
+          <div>
+            <p>1. Double-check the spelling and try your search again.</p>
+            <p>2. Explore our library for similar books or related topics.</p>
+            <p>
+              3. Consider expanding your search criteria or using different
+              keywords.
+            </p>
+            <p>
+              4. If you believe this is an essential book we should have, please
+              let us know, and we'll consider adding it in the future.
+            </p>
+            <br />
+            <p>
+              If you have any questions or need assistance, feel free to contact
+              our support team. Happy reading!
+            </p>
+          </div>
+        </div>
+      </ng-template>
+    </p-messages>
   </div>
 </section>

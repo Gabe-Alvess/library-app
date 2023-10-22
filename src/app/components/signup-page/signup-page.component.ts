@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/User';
 import { AuthService } from 'src/app/service/auth.service';
@@ -10,7 +10,7 @@ import { MessageService } from 'primeng/api';
   templateUrl: './signup-page.component.html',
   styleUrls: ['./signup-page.component.css'],
 })
-export class SignupPageComponent {
+export class SignupPageComponent implements OnInit {
   user: User = {
     firstName: '',
     lastName: '',
@@ -25,7 +25,13 @@ export class SignupPageComponent {
     private router: Router
   ) {}
 
-  onSubmit() {
+  ngOnInit(): void {
+    if (this.authService.getLoginStatus()) {
+      this.router.navigate(['']);
+    }
+  }
+
+  submit() {
     this.authService.signup(this.user).subscribe({
       next: () => {
         this.messageService.add({
@@ -50,7 +56,5 @@ export class SignupPageComponent {
         }
       },
     });
-
-    this.user = {} as User;
   }
 }

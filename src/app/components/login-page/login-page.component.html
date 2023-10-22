@@ -3,29 +3,65 @@
 >
   <p-toast position="bottom-center"></p-toast>
 
-  <form (ngSubmit)="onSubmit()">
-    <div
-      class="flex flex-col justify-evenly items-center text-xl w-[22vw] h-[60vh] bg-p-sBlue p-10 rounded-lg font-oswald"
+  <div
+    class="flex flex-col items-center w-[420px] h-[550px] bg-p-sBlue py-10 rounded-lg"
+  >
+    <h1 class="text-3xl uppercase font-oswald">Login</h1>
+
+    <form
+      #loginForm="ngForm"
+      (ngSubmit)="submit()"
+      novalidate
+      class="flex flex-col justify-evenly items-center text-xl w-[84%] h-full"
     >
-      <h1 class="text-3xl uppercase">Login</h1>
+      <div class="input-container">
+        <input
+          class="field"
+          type="email"
+          pInputText
+          name="title"
+          placeholder="Email"
+          [(ngModel)]="userInfo.email"
+          #email="ngModel"
+          required
+        />
 
-      <input
-        class="field"
-        type="email"
-        name="title"
-        placeholder="Email"
-        [(ngModel)]="userInfo.email"
-      />
+        <div
+          *ngIf="email.invalid && (email.dirty || email.touched)"
+          class="w-max absolute left-[95%]"
+        >
+          <div *ngIf="email.errors?.['required']">
+            <p-message severity="error" text="Email required."></p-message>
+          </div>
+        </div>
+      </div>
 
-      <input
-        class="field"
-        type="password"
-        name="author"
-        placeholder="Password"
-        [(ngModel)]="userInfo.password"
-      />
+      <div class="input-container">
+        <p-password
+          type="password"
+          name="author"
+          inputStyleClass="p-3 text-black text-center text-lg"
+          placeholder="Password"
+          [toggleMask]="true"
+          [feedback]="false"
+          [(ngModel)]="userInfo.password"
+          #password="ngModel"
+          required
+        ></p-password>
 
-      <button type="submit" class="btn">Login</button>
-    </div>
-  </form>
+        <div
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="w-max absolute left-[95%]"
+        >
+          <div *ngIf="password.errors?.['required']">
+            <p-message severity="error" text="Password required."></p-message>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn" [disabled]="!loginForm.form.valid">
+        Login
+      </button>
+    </form>
+  </div>
 </section>

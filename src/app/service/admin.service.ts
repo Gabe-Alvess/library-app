@@ -12,7 +12,7 @@ export class AdminService {
   constructor(private http: HttpClient) {}
 
   private initializeHeaders() {
-    const token = sessionStorage.getItem('Token');
+    const token = localStorage.getItem('Token');
 
     if (token) {
       this.headers = {

@@ -8,9 +8,19 @@ import { Book } from '../interfaces/Book';
 export class DataService {
   private searchInput = new BehaviorSubject<string>('');
   private failedToConnect = new BehaviorSubject<boolean>(false);
+  private notAllowed = new BehaviorSubject<boolean>(false);
   private errorCode = new BehaviorSubject<number>(0);
   private book = new BehaviorSubject<Book | undefined>(undefined);
+  private updateSucceeded = new BehaviorSubject<boolean>(false);
   private bookId = new BehaviorSubject<number>(0);
+
+  setUpdateSucceeded(succeeded: boolean) {
+    this.updateSucceeded.next(succeeded);
+  }
+
+  isUpdateSucceeded() {
+    return this.updateSucceeded.asObservable();
+  }
 
   setSearchInput(input: string) {
     this.searchInput.next(input);
@@ -26,6 +36,14 @@ export class DataService {
 
   getFailedToConnect() {
     return this.failedToConnect.asObservable();
+  }
+
+  setNotAllowed(isAllowed: boolean) {
+    this.notAllowed.next(isAllowed);
+  }
+
+  getNotAllowed() {
+    return this.notAllowed.asObservable();
   }
 
   setErrorCode(code: number) {

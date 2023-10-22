@@ -20,10 +20,13 @@ import { FooterComponent } from './components/footer/footer.component';
 import { BookDbComponent } from './components/book-db/book-db.component';
 import { UserBooksComponent } from './components/user-books/user-books.component';
 import { UpdateBookComponent } from './components/update-book/update-book.component';
-import { ToastModule } from 'primeng/toast';
-import { DatePipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
-import { RouteGuardService } from './service/route-guard.service';
+import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -49,10 +52,14 @@ import { RouteGuardService } from './service/route-guard.service';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    CarouselModule.forRoot(),
     ToastModule,
+    MessagesModule,
+    MessageModule,
+    InputTextModule,
+    PasswordModule,
+    CarouselModule.forRoot(),
   ],
-  providers: [MessageService, DatePipe, RouteGuardService],
+  providers: [MessageService, DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

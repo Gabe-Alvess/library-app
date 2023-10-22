@@ -5,6 +5,7 @@ import { BookService } from 'src/app/service/book.service';
 import { DataService } from 'src/app/service/data.service';
 import { UserService } from 'src/app/service/user.service';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'book-page',
@@ -12,13 +13,24 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./book-page.component.css'],
 })
 export class BookPageComponent implements OnInit {
-  book: Book = {} as Book;
-  success: boolean = false;
-  notLoggedIn: boolean = false;
-  notAvailable: boolean = false;
+  book: Book = {
+    id: 0,
+    imgURL: '',
+    title: '',
+    author: '',
+    genres: '',
+    description: '',
+    releaseDate: '',
+    available: true,
+  };
+
+  success = false;
+  notLoggedIn = false;
+  notAvailable = false;
 
   constructor(
     private messageService: MessageService,
+    private authService: AuthService,
     private userService: UserService,
     private bookService: BookService,
     private dataService: DataService,
@@ -26,63 +38,71 @@ export class BookPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const currentBook = sessionStorage.getItem('Book');
+    const storedBook = sessionStorage.getItem('Book');
 
-    if (currentBook) {
-      this.book = JSON.parse(currentBook);
+    if (storedBook) {
+      this.book = JSON.parse(storedBook);
     }
 
-    this.getBook();
+    this.getBookData();
   }
 
-  getBook() {
-    this.dataService.getBook().subscribe((clickedBook) => {
-      if (clickedBook !== undefined) {
-        this.book = clickedBook;
-        sessionStorage.removeItem('Book');
-        sessionStorage.setItem('Book', JSON.stringify(clickedBook));
-      }
+  getBookData() {
+    this.dataService.getBookId().subscribe((bookId) => {
+      const idToFetch = bookId !== 0 ? bookId : this.book.id;
+
+      this.getBookById(idToFetch);
+    });
+  }
+
+  getBookById(bookId: number) {
+    this.bookService.findBook(bookId).subscribe({
+      next: (response) => {
+        this.handleSuccessfulResponse(response);
+      },
+      error: (errorResponse) => {
+        console.log('Book Page Error: ', errorResponse);
+        this.handleErrorResponse(errorResponse);
+      },
     });
   }
 
   borrowBook() {
-    const token = sessionStorage.getItem('Token');
-    const email = sessionStorage.getItem('Email') as string;
+    const email = localStorage.getItem('Email');
 
-    if (token) {
-      this.userService.borrowBook(email, this.book.id).subscribe({
-        next: () => {
-          this.success = true;
-          this.showMessage();
-          this.dataService.setFailedToConnect(false);
-        },
-        error: (errorResponse) => {
-          console.log('borrowBook Error: ', errorResponse);
-          this.dataService.setFailedToConnect(true);
-          this.dataService.setErrorCode(errorResponse.status);
-          this.router.navigate(['error-page']);
-        },
-      });
+    if (this.authService.getLoginStatus()) {
+      if (email) {
+        this.userService.borrowBook(email, this.book.id).subscribe({
+          next: () => {
+            this.success = true;
+            this.showMessage();
+            this.getBookById(this.book.id);
+            this.dataService.setFailedToConnect(false);
+          },
+          error: (errorResponse) => {
+            console.log('borrowBook Error: ', errorResponse);
+            this.handleErrorResponse(errorResponse);
+          },
+        });
+      } else {
+        console.log('Email Not Found!');
+      }
     } else {
       this.notLoggedIn = true;
       this.showMessage();
     }
   }
 
-  updateAvailability() {
-    this.bookService.findBook(this.book.id).subscribe({
-      next: (response) => {
-        this.book = response;
-        this.dataService.setBook(this.book);
-        this.dataService.setFailedToConnect(false);
-      },
-      error: (errorResponse) => {
-        console.log('updatePage error: ', errorResponse);
-        this.dataService.setFailedToConnect(true);
-        this.dataService.setErrorCode(errorResponse.status);
-        this.router.navigate(['error-page']);
-      },
-    });
+  handleSuccessfulResponse(response: any) {
+    this.book = response;
+    sessionStorage.setItem('Book', JSON.stringify(response));
+    this.dataService.setFailedToConnect(false);
+  }
+
+  handleErrorResponse(errorResponse: any) {
+    this.dataService.setFailedToConnect(true);
+    this.dataService.setErrorCode(errorResponse.status);
+    this.router.navigate(['error-page']);
   }
 
   bookNotAvailable() {
@@ -101,8 +121,6 @@ export class BookPageComponent implements OnInit {
     }
 
     if (this.success) {
-      this.updateAvailability();
-
       this.messageService.add({
         severity: 'success',
         summary: 'Success',

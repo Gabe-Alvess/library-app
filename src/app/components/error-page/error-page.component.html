@@ -1,9 +1,5 @@
-<div class="page h-screen flex justify-center items-center">
-  <div *ngIf="failedToConnect" class="errorMessage">
-    <img src="../../assets/icons/bx-error.svg" alt="error icon" />
-    <div class="h-full flex flex-col justify-evenly">
-      <p>Something Went Wrong!</p>
-      <p>Error Code: {{ errorCode }}</p>
-    </div>
+<section class="page h-screen flex justify-center items-center">
+  <div class="w-[45%]">
+    <p-messages [closable]="false"></p-messages>
   </div>
-</div>
+</section>

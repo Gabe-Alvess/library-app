@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/service/auth.service';
@@ -9,7 +9,7 @@ import { DataService } from 'src/app/service/data.service';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css'],
 })
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit {
   userInfo = {
     email: '',
     password: '',
@@ -25,12 +25,19 @@ export class LoginPageComponent {
     private router: Router
   ) {}
 
-  onSubmit() {
+  ngOnInit(): void {
+    if (this.authService.getLoginStatus()) {
+      this.router.navigate(['']);
+    }
+  }
+
+  submit() {
     this.authService.login(this.userInfo).subscribe({
       next: (response: any) => {
-        sessionStorage.setItem('Token', response.token);
-        sessionStorage.setItem('Email', response.email);
-        sessionStorage.setItem('Role', response.role);
+        localStorage.setItem('Token', response.token);
+        localStorage.setItem('Email', response.email);
+        localStorage.setItem('Role', response.role);
+
         this.dataService.setFailedToConnect(false);
         this.router.navigate(['']);
       },
@@ -49,11 +56,6 @@ export class LoginPageComponent {
         }
       },
     });
-
-    this.userInfo = {
-      email: '',
-      password: '',
-    };
   }
 
   showErrorMessage() {

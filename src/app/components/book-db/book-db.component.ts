@@ -1,58 +1,75 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Book } from 'src/app/interfaces/Book';
 import { AdminService } from 'src/app/service/admin.service';
 import { BookService } from 'src/app/service/book.service';
 import { DataService } from 'src/app/service/data.service';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/service/auth.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-book-db',
   templateUrl: './book-db.component.html',
   styleUrls: ['./book-db.component.css'],
 })
-export class BookDbComponent implements OnInit {
+export class BookDbComponent implements OnInit, OnDestroy {
   books: Book[] = [];
   deleted = false;
   updated = false;
-  updatePage = false;
   noBooksFound = false;
 
   constructor(
     private messageService: MessageService,
+    private authService: AuthService,
     private adminService: AdminService,
     private bookService: BookService,
     private dataService: DataService,
     private router: Router
   ) {}
 
+  private ngUnsubscribe = new Subject<void>();
+
   ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.authService.isAllowed();
+    }
+
     this.getAllBooks();
+    this.getUpdateStatus();
   }
 
   getAllBooks() {
     this.bookService.findBooks().subscribe({
       next: (response: Book[]) => {
-        this.books = response;
-
-        this.books.length === 0
-          ? (this.noBooksFound = true)
-          : (this.noBooksFound = false);
-
-        this.dataService.setFailedToConnect(false);
+        this.handleSuccessfulResponse(response);
       },
-      error: (responseError) => {
-        console.error('Get db books error: ', responseError);
-        this.dataService.setFailedToConnect(true);
-        this.dataService.setErrorCode = responseError.status;
-        this.router.navigate(['error-page']);
+      error: (errorResponse) => {
+        console.error('Get db books error: ', errorResponse);
+        this.handleErrorResponse(errorResponse);
       },
     });
   }
 
-  updateBook(id: number) {
-    this.updatePage = true;
-    this.dataService.setBookId(id);
+  updateBook(book: Book) {
+    this.dataService.setBook(book);
+    this.router.navigate(['update-book']);
+  }
+
+  getUpdateStatus() {
+    this.dataService
+      .isUpdateSucceeded()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((boolean) => {
+        this.updated = boolean;
+        this.showMessage();
+      });
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   deleteBook(id: number) {
@@ -67,11 +84,25 @@ export class BookDbComponent implements OnInit {
       },
       error: (errorResponse) => {
         console.error('Delete error', errorResponse);
-        this.dataService.setFailedToConnect(true);
-        this.dataService.setErrorCode(errorResponse.status);
-        this.router.navigate(['error-page']);
+        this.handleErrorResponse(errorResponse);
       },
     });
+  }
+
+  handleSuccessfulResponse(response: any) {
+    this.books = response;
+
+    this.books.length === 0
+      ? (this.noBooksFound = true)
+      : (this.noBooksFound = false);
+
+    this.dataService.setFailedToConnect(false);
+  }
+
+  handleErrorResponse(errorResponse: any) {
+    this.dataService.setFailedToConnect(true);
+    this.dataService.setErrorCode(errorResponse.status);
+    this.router.navigate(['error-page']);
   }
 
   showMessage() {
@@ -86,20 +117,17 @@ export class BookDbComponent implements OnInit {
     }
 
     if (this.updated) {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Book Successfully Updated!',
-      });
-
-      this.getAllBooks();
+      this.dataService.setUpdateSucceeded(false);
 
       setTimeout(() => {
-        location.reload();
-      }, 3400);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Book Successfully Updated!',
+        });
+      }, 1);
 
       this.updated = false;
-      this.updatePage = false;
     }
   }
 }

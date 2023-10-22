@@ -2,7 +2,7 @@
   <p-toast position="bottom-right"></p-toast>
 
   <div
-    class="w-[95vw] h-[75vh] bg-p-sBlue p-4 overflow-y-scroll scrollbar-none"
+    class="w-[95vw] h-[75vh] bg-p-sBlue p-4 overflow-y-scroll rounded-md scrollbar-none"
   >
     <div
       *ngIf="noBooksFound"
@@ -53,9 +53,7 @@
             {{ book.releaseDate }}
           </td>
           <td>
-            <button (click)="updateBook(book.id)" class="updt-btn">
-              Update
-            </button>
+            <button (click)="updateBook(book)" class="updt-btn">Update</button>
           </td>
           <td>
             <button (click)="deleteBook(book.id)" class="del-btn">
@@ -65,9 +63,5 @@
         </tr>
       </tbody>
     </table>
-  </div>
-
-  <div *ngIf="updatePage">
-    <app-update-book></app-update-book>
   </div>
 </section>

@@ -18,15 +18,12 @@ export class CarouselComponent implements OnInit {
     private router: Router
   ) {}
 
-  updateBook(book: Book) {
-    this.dataService.setBook(book);
+  transferBookId(bookId: number) {
+    this.dataService.setBookId(bookId);
     this.router.navigate(['book-page']);
   }
 
   ngOnInit(): void {
-    /* TODO: Find a way to check if the there are no updates in the popular books list! 
-      So that there is no need to make a request every time.
-    */
     this.findPopularBooks();
   }
 

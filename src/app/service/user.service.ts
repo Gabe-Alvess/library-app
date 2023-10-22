@@ -12,7 +12,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   private initializeHeaders() {
-    const token = sessionStorage.getItem('Token');
+    const token = localStorage.getItem('Token');
 
     if (token) {
       this.headers = {
@@ -23,7 +23,7 @@ export class UserService {
     }
   }
 
-  getUserName(email: string) {
+  getUserInfo(email: string) {
     this.initializeHeaders();
 
     return this.http.get(`${this.apiUrl}/get?email=${email}`, this.headers);

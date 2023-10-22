@@ -1,9 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Book } from 'src/app/interfaces/Book';
 import { AdminService } from 'src/app/service/admin.service';
+import { AuthService } from 'src/app/service/auth.service';
 import { DataService } from 'src/app/service/data.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { DataService } from 'src/app/service/data.service';
   templateUrl: './add-book.component.html',
   styleUrls: ['./add-book.component.css'],
 })
-export class AddBookComponent {
+export class AddBookComponent implements OnInit {
   newBook?: Book;
   failed: boolean = false;
   errorCode: string = '';
@@ -31,10 +32,17 @@ export class AddBookComponent {
   constructor(
     private messageService: MessageService,
     private adminService: AdminService,
+    private authService: AuthService,
     private dataService: DataService,
     private datePipe: DatePipe,
     private router: Router
   ) {}
+
+  ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.authService.isAllowed();
+    }
+  }
 
   formatDate() {
     const formattedDate = this.datePipe.transform(
@@ -45,7 +53,7 @@ export class AddBookComponent {
     this.book.releaseDate = formattedDate;
   }
 
-  onSubmit() {
+  submit() {
     this.formatDate();
 
     this.adminService.addBook(this.book).subscribe({
@@ -68,7 +76,5 @@ export class AddBookComponent {
         }
       },
     });
-
-    this.book = {} as Book;
   }
 }
