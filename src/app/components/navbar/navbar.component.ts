@@ -17,6 +17,22 @@ export class NavbarComponent implements DoCheck {
     this.isAdmin = this.authService.isAdmin();
   }
 
+  scrollToCatalog() {
+    const catalog = document.querySelector('#catalog');
+
+    if (catalog) {
+      catalog.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  scrollToHome() {
+    const home = document.querySelector('#home');
+
+    if (home) {
+      home.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
   logout(): void {
     localStorage.clear();
   }

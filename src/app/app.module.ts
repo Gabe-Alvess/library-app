@@ -27,6 +27,7 @@ import { MessageModule } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { DatePipe } from '@angular/common';
+import { BookCatalogComponent } from './components/book-catalog/book-catalog.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { DatePipe } from '@angular/common';
     BookDbComponent,
     UserBooksComponent,
     UpdateBookComponent,
+    BookCatalogComponent,
   ],
   imports: [
     BrowserModule,

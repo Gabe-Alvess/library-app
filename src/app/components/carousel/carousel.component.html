@@ -1,7 +1,5 @@
-<section class="flex flex-col items-center justify-evenly h-[75vh]">
-  <div class="">
-    <h2 class="text-p-beige text-5xl font-oswald">Most Popular Books</h2>
-  </div>
+<section class="page h-screen flex flex-col items-center justify-center gap-4">
+  <h2 class="text-p-beige text-5xl font-oswald">Most Popular Books</h2>
 
   <carousel [interval]="8000" [showIndicators]="true" [isAnimated]="true">
     <slide *ngFor="let book of books">

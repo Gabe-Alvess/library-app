@@ -12,5 +12,5 @@ body {
 }
 
 .page {
-  @apply bg-black bg-opacity-30 pt-[104px];
+  @apply bg-black bg-opacity-30 pt-[128px];
 }

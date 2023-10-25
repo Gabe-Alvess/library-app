@@ -1,13 +1,4 @@
-<section class="page h-screen">
-  <div *ngIf="!isLoggedIn">
-    <h1 class="text-6xl text-p-beige font-oswald pt-4 pl-10">
-      Welcome To The Library App
-    </h1>
-  </div>
-  <div *ngIf="isLoggedIn">
-    <h1 class="text-6xl text-p-beige font-oswald pt-4 pl-10">
-      Welcome {{ firstName }} {{ lastName }}
-    </h1>
-  </div>
+<section class="" id="home">
   <app-carousel></app-carousel>
+  <book-catalog></book-catalog>
 </section>
