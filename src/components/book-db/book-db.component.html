@@ -1,0 +1,79 @@
+<section class="page h-screen flex justify-center items-center">
+  <p-toast position="bottom-right"></p-toast>
+
+  <div
+    class="w-[95vw] h-[75vh] bg-p-sBlue p-4 overflow-y-scroll rounded-md scrollbar-none"
+  >
+    <div
+      *ngIf="noBooksFound"
+      class="w-full h-full flex justify-center items-center"
+    >
+      <p-messages severity="error">
+        <ng-template pTemplate>
+          <div class="flex items-center gap-2">
+            <img
+              class="w-8"
+              src="../../../assets/icons/bx-x-circle.svg"
+              alt="info icon"
+            />
+  
+            <p><strong>Oops!</strong></p>
+            <p>
+              Somebody Dropped The Table! 🤦🏻‍♂️
+            </p>
+          </div>
+        </ng-template>
+      </p-messages>
+    </div>
+
+    <table
+      *ngIf="!noBooksFound"
+      class="w-full text-p-beige text-2xl font-oswald text-center"
+    >
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Description</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Genres</th>
+          <th>Release Date</th>
+          <th>Update Book</th>
+          <th>Delete Book</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let book of books">
+        <tr>
+          <td>
+            <img
+              [src]="book.imgURL"
+              alt="book image"
+              class="w-[200px] h-[250px] object-contain ml-auto mr-auto"
+            />
+          </td>
+          <td>
+            <p
+              class="max-h-60 overflow-y-scroll overflow-x-hidden scrollbar-none text-ellipsis"
+            >
+              {{ book.description }}
+            </p>
+          </td>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.genres }}</td>
+          <td>
+            {{ book.releaseDate }}
+          </td>
+          <td>
+            <button (click)="updateBook(book)" class="updt-btn">Update</button>
+          </td>
+          <td>
+            <button (click)="deleteBook(book.id)" class="del-btn">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
