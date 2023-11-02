@@ -1,0 +1,155 @@
+<section class="page h-screen flex items-center justify-center">
+  <div
+    class="w-[500px] h-[715px] flex flex-col items-center justify-evenly p-4 rounded-md bg-p-sBlue text-p-beige text-2xl font-mooli"
+  >
+    <div class="relative bg-slate-100 rounded-lg p-2">
+      <img
+        *ngIf="profilePhoto"
+        [src]="profilePhoto"
+        alt="profile photo"
+        class="w-28 rounded-full"
+      />
+
+      <p-avatar
+        *ngIf="!profilePhoto"
+        [label]="firstName.charAt(0) + lastName.charAt(0)"
+        styleClass="w-28 h-28 text-3xl"
+        shape="circle"
+      ></p-avatar>
+
+      <input
+        type="file"
+        #fileInput
+        accept="image/*"
+        class="hidden"
+        />
+        <!-- (change)="onFileSelected(fileInput)" -->
+
+        <!-- (click)="openFileInput(fileInput)" -->
+      <button
+        type="button"
+        class="absolute right-0 bottom-0"
+        >
+        <img
+          src="../../../assets/icons/bxs-edit.svg"
+          alt="edit icon"
+          class="bg-green-500 p-1 rounded-md transition-transform duration-300 hover:scale-105"
+        />
+      </button>
+    </div>
+
+    <div class="h-24 flex flex-col justify-around">
+      <label for="email">Email:</label>
+      <div class="flex gap-2">
+        <input
+          type="text"
+          pInputText
+          name="email"
+          id="email"
+          [value]="email"
+          [readOnly]="editEmail ? true : false"
+          class="p-2 text-black text-center"
+        />
+
+        <button
+          *ngIf="!saveEmail"
+          (click)="updateEmail()"
+          class="w-14 h-14 flex items-center justify-center rounded-md bg-green-500 transition-transform duration-300 hover:scale-105"
+        >
+          <img
+            src="../../../assets/icons/bxs-edit.svg"
+            alt="edit icon"
+            class="w-9"
+          />
+        </button>
+
+        <button
+          *ngIf="saveEmail"
+          class="w-14 h-14 flex items-center justify-center rounded-md bg-green-500 transition-transform duration-300 hover:scale-105"
+        >
+          <img
+            src="../../../assets/icons/bx-check.svg"
+            alt="check icon"
+            class="w-10"
+          />
+        </button>
+      </div>
+    </div>
+
+    <div class="h-24 flex flex-col justify-around">
+      <label for="email">First Name:</label>
+      <div class="flex gap-2">
+        <input
+          type="text"
+          pInputText
+          name="email"
+          id="email"
+          [value]="firstName"
+          [readOnly]="editFirstName ? true : false"
+          class="p-2 text-black text-center"
+        />
+
+        <button
+          *ngIf="!saveFirstName"
+          (click)="updateFirstName()"
+          class="w-14 h-14 flex items-center justify-center rounded-md bg-green-500 transition-transform duration-300 hover:scale-105"
+        >
+          <img
+            src="../../../assets/icons/bxs-edit.svg"
+            alt="edit icon"
+            class="w-9"
+          />
+        </button>
+
+        <button
+          *ngIf="saveFirstName"
+          class="w-14 h-14 flex items-center justify-center rounded-md bg-green-500 transition-transform duration-300 hover:scale-105"
+        >
+          <img
+            src="../../../assets/icons/bx-check.svg"
+            alt="check icon"
+            class="w-10"
+          />
+        </button>
+      </div>
+    </div>
+
+    <div class="h-24 flex flex-col justify-around">
+      <label for="email">Last Name:</label>
+      <div class="flex gap-2">
+        <input
+          type="text"
+          pInputText
+          name="email"
+          id="email"
+          [value]="lastName"
+          [readOnly]="editLastName ? true : false"
+          class="p-2 text-black text-center"
+        />
+
+        <button
+          *ngIf="!saveLastName"
+          (click)="updateLastName()"
+          class="w-14 h-14 flex items-center justify-center rounded-md bg-green-500 transition-transform duration-300 hover:scale-105"
+        >
+          <img
+            src="../../../assets/icons/bxs-edit.svg"
+            alt="edit icon"
+            class="w-9"
+          />
+        </button>
+
+        <button
+          *ngIf="saveLastName"
+          class="w-14 h-14 flex items-center justify-center rounded-md bg-green-500 transition-transform duration-300 hover:scale-105"
+        >
+          <img
+            src="../../../assets/icons/bx-check.svg"
+            alt="check icon"
+            class="w-10"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

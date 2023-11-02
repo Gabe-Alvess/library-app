@@ -1,0 +1,95 @@
+<section class="h-[500px] flex flex-col justify-evenly bg-p-sBlue text-p-beige">
+  <h1 class="text-2xl pl-5">Development Team</h1>
+
+  <div class="flex items-center justify-evenly">
+    <div
+      *ngFor="let dev of devs"
+      class="w-80 h-36 flex items-center justify-center gap-2 border-2 rounded-xl"
+    >
+      <p-avatar
+        [image]="dev.profileImg"
+        styleClass="mr-2"
+        size="xlarge"
+        shape="circle"
+      ></p-avatar>
+      <div class="flex flex-col text-lg font-mooli">
+        <p>{{ dev.name }}</p>
+        <div class="flex items-center gap-1">
+          <img
+            src="../../../assets/icons/bxl-linkedin-square.svg"
+            alt="linkedIn icon"
+          />
+          <p class="hover:underline">
+            <a [href]="dev.linkedIn" target="_blank" rel="noopener noreferrer"
+              >LinkedIn</a
+            >
+          </p>
+        </div>
+        <div class="flex items-center gap-1">
+          <img src="../../../assets/icons/bxl-github.svg" alt="github icon" />
+          <p class="hover:underline">
+            <a [href]="dev.github" target="_blank" rel="noopener noreferrer"
+              >Github</a
+            >
+          </p>
+        </div>
+        <div class="flex items-center gap-1">
+          <img src="../../../assets/icons/bx-envelope.svg" alt="github icon" />
+          <p class="hover:underline">
+            <a [href]="'mailto:' + dev.email">Email</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="text-2xl pl-5">
+    Huge Thanks To All Intec Brussel <br />
+    And Especial Thanks To Our Teachers
+  </p>
+
+  <div class="flex items-center justify-evenly">
+    <div
+      *ngFor="let teacher of teachers"
+      class="w-80 h-36 flex items-center justify-center gap-2 border-2 rounded-xl"
+    >
+      <p-avatar
+        [image]="teacher.profileImg"
+        styleClass="mr-2"
+        size="xlarge"
+        shape="circle"
+      ></p-avatar>
+      <div class="flex flex-col text-lg font-mooli">
+        <p>{{ teacher.name }}</p>
+        <div class="flex items-center gap-1">
+          <img
+            src="../../../assets/icons/bxl-linkedin-square.svg"
+            alt="linkedIn icon"
+          />
+          <p class="hover:underline">
+            <a
+              [href]="teacher.linkedIn"
+              target="_blank"
+              rel="noopener noreferrer"
+              >LinkedIn</a
+            >
+          </p>
+        </div>
+        <div class="flex items-center gap-1">
+          <img src="../../../assets/icons/bxl-github.svg" alt="github icon" />
+          <p class="hover:underline">
+            <a [href]="teacher.github" target="_blank" rel="noopener noreferrer"
+              >Github</a
+            >
+          </p>
+        </div>
+        <div class="flex items-center gap-1">
+          <img src="../../../assets/icons/bx-envelope.svg" alt="github icon" />
+          <p class="hover:underline">
+            <a [href]="'mailto:' + teacher.email">Email</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

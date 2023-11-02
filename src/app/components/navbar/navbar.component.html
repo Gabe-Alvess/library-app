@@ -1,0 +1,106 @@
+<nav class="fixed z-10 bg-p-sBlue w-screen flex justify-evenly items-center">
+  <div class="w-80 flex items-center justify-evenly py-3">
+    <img
+      src="../../../assets/images/library-logo.jpg"
+      alt="library logo"
+      class="w-24 h-24 rounded-full"
+    />
+    <div class="text-4xl text-teal-300 font-mooli">
+      <p>ReadIt</p>
+      <p>Digital</p>
+    </div>
+  </div>
+  <ng-container *ngIf="isUser || isAdmin">
+    <div
+      class="flex items-center gap-2 cursor-pointer transition duration-300 ease-in-out hover:bg-p-lBlue hover:bg-opacity-70 p-2 rounded-md"
+      routerLink="/profile-page"
+    >
+      <img
+        *ngIf="profilePhotoUrl"
+        [src]="profilePhotoUrl"
+        alt="profile photo"
+        class="w-14 rounded-full"
+      />
+
+      <p-avatar
+        *ngIf="!profilePhotoUrl"
+        [label]="firstName.charAt(0) + lastName.charAt(0)"
+        size="large"
+        shape="circle"
+      ></p-avatar>
+      <div class="text-white font-mooli">
+        <p
+          class="text-lg whitespace-nowrap overflow-hidden overflow-ellipsis max-w-[150px]"
+        >
+          {{ firstName }} {{ lastName }}
+        </p>
+      </div>
+    </div>
+  </ng-container>
+  <search-bar></search-bar>
+  <div class="flex">
+    <a routerLink="/" class="btn group" (click)="scrollToHome()">
+      <p>
+        Home
+        <span class="go-span"> GO </span>
+      </p>
+    </a>
+    <a href="#book-catalog" class="btn group" (click)="scrollToCatalog()">
+      <p>
+        Catalog
+        <span class="go-span"> GO </span>
+      </p>
+    </a>
+    <ng-container *ngIf="!isUser && !isAdmin">
+      <!-- Show for guests -->
+      <a routerLink="/login-page" class="btn group">
+        <p>
+          Login
+          <span class="go-span"> GO </span>
+        </p>
+      </a>
+      <a routerLink="/signup-page" class="btn group">
+        <p>
+          Signup
+          <span class="go-span"> GO </span>
+        </p>
+      </a>
+    </ng-container>
+    <ng-container *ngIf="isUser">
+      <!-- Show for users -->
+      <a routerLink="/user-books" class="btn group">
+        <p>
+          My Books
+          <span class="go-span"> GO </span>
+        </p>
+      </a>
+      <a routerLink="/" (click)="logout()" class="btn group">
+        <p>
+          Logout
+          <span class="go-span"> GO </span>
+        </p>
+      </a>
+    </ng-container>
+    <ng-container *ngIf="isAdmin">
+      <!-- Show for admins -->
+      <a routerLink="/book-db" class="btn group">
+        <p>
+          Book DB
+          <span class="go-span"> GO </span>
+        </p>
+      </a>
+      <a routerLink="/add-book" class="btn group">
+        <p>
+          Add Book
+          <span class="go-span"> GO </span>
+        </p>
+      </a>
+      <a routerLink="/" (click)="logout()" class="btn group">
+        <p>
+          Logout
+          <span class="go-span"> GO </span>
+        </p>
+      </a>
+    </ng-container>
+  </div>
+</nav>
