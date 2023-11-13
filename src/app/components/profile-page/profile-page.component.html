@@ -19,17 +19,17 @@
 
       <input
         type="file"
-        #fileInput
         accept="image/*"
         class="hidden"
-        />
-        <!-- (change)="onFileSelected(fileInput)" -->
+        (change)="onFileChanged($event)"
+        #fileInput
+      />
 
-        <!-- (click)="openFileInput(fileInput)" -->
       <button
         type="button"
+        (click)="fileInput.click()"
         class="absolute right-0 bottom-0"
-        >
+      >
         <img
           src="../../../assets/icons/bxs-edit.svg"
           alt="edit icon"

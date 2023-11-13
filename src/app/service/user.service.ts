@@ -29,6 +29,10 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/get?email=${email}`, this.headers);
   }
 
+  addProfilePhoto(email: string) {
+
+  }
+
   getBorrowedBooks(email: string) {
     this.initializeHeaders();
 

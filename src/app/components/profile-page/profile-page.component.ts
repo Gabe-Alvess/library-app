@@ -84,14 +84,14 @@ export class ProfilePageComponent implements OnInit {
     return new Blob([uint8Array], { type: 'image/png' });
   }
 
-  openFileInput(input: ElementRef) {
-    input.nativeElement.click(); // Open the file input dialog
-  }
-
-  onFileSelected(input: ElementRef) {
-    const file = input.nativeElement.files[0]; // Get the selected file
-
-    // Handle the selected file here, e.g., upload it to a server or process it
+  onFileChanged(event: any) {
+    const file = event.target.files[0];
+    // Check if file is an image
+    if (!file.type.startsWith('image/')) {
+      console.log('Please upload only image files.');
+      return;
+    }
+    
   }
 
   updateEmail() {
