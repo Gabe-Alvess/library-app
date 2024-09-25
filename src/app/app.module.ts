@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
@@ -32,42 +32,35 @@ import { PaginatorModule } from 'primeng/paginator';
 import { AvatarModule } from 'primeng/avatar';
 import { DatePipe } from '@angular/common';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HomePageComponent,
-    NavbarComponent,
-    LoginPageComponent,
-    SignupPageComponent,
-    FooterComponent,
-    ErrorPageComponent,
-    SearchPageComponent,
-    SearchBarComponent,
-    CarouselComponent,
-    BookPageComponent,
-    AddBookComponent,
-    BookDbComponent,
-    UserBooksComponent,
-    UpdateBookComponent,
-    BookCatalogComponent,
-    ProfilePageComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    ToastModule,
-    MessagesModule,
-    MessageModule,
-    InputTextModule,
-    PasswordModule,
-    PaginatorModule,
-    AvatarModule,
-    CarouselModule.forRoot(),
-  ],
-  providers: [MessageService, DatePipe],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HomePageComponent,
+        NavbarComponent,
+        LoginPageComponent,
+        SignupPageComponent,
+        FooterComponent,
+        ErrorPageComponent,
+        SearchPageComponent,
+        SearchBarComponent,
+        CarouselComponent,
+        BookPageComponent,
+        AddBookComponent,
+        BookDbComponent,
+        UserBooksComponent,
+        UpdateBookComponent,
+        BookCatalogComponent,
+        ProfilePageComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        FormsModule,
+        ToastModule,
+        MessagesModule,
+        MessageModule,
+        InputTextModule,
+        PasswordModule,
+        PaginatorModule,
+        AvatarModule,
+        CarouselModule.forRoot()], providers: [MessageService, DatePipe, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {}
